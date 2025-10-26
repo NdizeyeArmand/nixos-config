@@ -1,0 +1,31 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+  include "be(nodeadkeys)"
+
+  key <TLDE>  { type = "FOUR_LEVEL_ALPHABETIC", [twosuperior, threesuperior,    notsign,      notsign ]};
+  key <AE01>  { type = "FOUR_LEVEL_ALPHABETIC", [  ampersand,          1,           bar,   exclamdown ]};
+  key <AE02>  { type = "FOUR_LEVEL_ALPHABETIC", [     eacute,          2,            at,    oneeighth ]};
+  key <AE03>  { type = "FOUR_LEVEL_ALPHABETIC", [   quotedbl,          3,    numbersign,     sterling ]};
+  key <AE04>  { type = "FOUR_LEVEL_ALPHABETIC", [ apostrophe,          4,    onequarter,       dollar ]};
+  key <AE05>  { type = "FOUR_LEVEL_ALPHABETIC", [  parenleft,          5,       onehalf, threeeighths ]};
+  key <AE06>  { type = "FOUR_LEVEL_ALPHABETIC", [    section,          6,   asciicircum,  fiveeighths ]};
+  key <AE07>  { type = "FOUR_LEVEL_ALPHABETIC", [     egrave,          7,     braceleft, seveneighths ]};
+  key <AE08>  { type = "FOUR_LEVEL_ALPHABETIC", [     exclam,          8,   bracketleft,    trademark ]};
+  key <AE09>  { type = "FOUR_LEVEL_ALPHABETIC", [   ccedilla,          9,     braceleft,    plusminus ]};
+  key <AE10>  { type = "FOUR_LEVEL_ALPHABETIC", [     agrave,          0,    braceright,       degree ]};
+  key <AE11>  { type = "FOUR_LEVEL_ALPHABETIC", [ parenright,     degree,     backslash, questiondown ]};
+  key <AE12>  { type = "FOUR_LEVEL_ALPHABETIC", [      minus, underscore,  dead_cedilla,  dead_ogonek ]};
+
+  key <AD11>  { type = "FOUR_LEVEL_ALPHABETIC", [dead_circumflex, dead_diaeresis, bracketleft, dead_abovering]};
+  key <AD12>  { type = "FOUR_LEVEL_ALPHABETIC", [     dollar,   asterisk,  bracketright,  dead_macron ]};
+
+  key <AC11>  { type = "FOUR_LEVEL_ALPHABETIC", [     ugrave,    percent,    dead_acute,   dead_caron ]};
+  key <BKSL>  { type = "FOUR_LEVEL_ALPHABETIC", [         mu,   sterling,    dead_grave,   dead_breve ]};
+
+  key <LSGT>  { type = "FOUR_LEVEL_ALPHABETIC", [       less,    greater,     backslash,    backslash ]};
+  key <AB01>  { type = "FOUR_LEVEL_ALPHABETIC", [          w,          W, guillemotleft,         less ]};
+  key <AB07>  { type = "FOUR_LEVEL_ALPHABETIC", [      comma,   question,  dead_cedilla,    masculine ]};
+  key <AB08>  { type = "FOUR_LEVEL_ALPHABETIC", [  semicolon,     period,         U2022,     multiply ]}; // bullet
+  key <AB09>  { type = "FOUR_LEVEL_ALPHABETIC", [      colon,      slash, periodcentered,    division ]};
+  key <AB10>  { type = "FOUR_LEVEL_ALPHABETIC", [      equal,       plus,    asciitilde, dead_abovedot]};
+ };

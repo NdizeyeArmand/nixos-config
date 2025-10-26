@@ -1,0 +1,13 @@
+# Build results
+result
+result-*
+
+# Backup files
+*.bak
+*~
+
+# Editor files
+.vscode/
+.idea/
+
+# hardware-configuration.nix
