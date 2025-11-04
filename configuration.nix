@@ -5,13 +5,12 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./packages.nix
-      ./keyboard.nix
-      ./services.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./packages.nix
+    ./keyboard.nix
+    ./services.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -24,6 +23,10 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  hardware.graphics.enable = true;
+
+  programs.firefox.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -83,11 +86,7 @@
   users.users.armand = {
     isNormalUser = true;
     description = "Armand";
-    extraGroups = [ "networkmanager" "wheel" "vboxsf"];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
   };
 
   # Automatic garbage collection

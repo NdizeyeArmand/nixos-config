@@ -4,22 +4,39 @@
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+    # Browsing
     tor-browser-bundle-bin # Privacy-focused browser routing traffic through the Tor network
-    firefox
     # mullvad # Mullvad VPN command-line client tools
-    # qbittorrent # OpenSource Qt Bittorrent client
+
+    # File management
+    rucola # Terminal-based markdown note manager
+    yazi # Terminal file manager
+    file
+    xdg-utils
+    kdePackages.okular # Universal document viewer
+    nsxiv # Image viewer
+    zathura # PDF viewer
+    glow
+
+    # Document creation
+    typst
+    typstfmt
+
+    # Media
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
     vlc # Media Player
     # dim # Self-hosted media manager
-    # zellij # Terminal workspace with batteries included
-    # niri # Scrollable-tiling Wayland compositor
-    jq
-    rucola # Terminal-based markdown note manager
-    zathura # zathura
+    # qbittorrent # OpenSource Qt Bittorrent client
+
+    # Coding
+    jq # JSON
     nushell # Modern shell written in Rust
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
-    yazi # Terminal file manager
     # claude-code # Agentic coding tool
+    # zellij # Terminal workspace with batteries included
+    # niri # Scrollable-tiling Wayland compositor
+
+    # Misc
     bitwarden-cli # Secure and free password manager for all of your devices
     wiki-tui # Simple and easy to use Wikipedia Text User Interface
     # hledger # CLI for the hledger accounting system 
@@ -27,6 +44,7 @@
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userName = "Dark_Loon";
     userEmail = "armandgaeln@gmail.com";
     aliases = {
@@ -56,5 +74,10 @@
         "ui.background" = { };
       };
     };
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = { "application/pdf" = "org.pwmt.zathura.desktop"; };
   };
 }
