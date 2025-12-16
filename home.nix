@@ -75,6 +75,12 @@
     };
   };
 
+  programs.keychain = {
+    enable = true;
+    keys = [ "id_ed25519" ];
+    agents = [ "ssh" ];
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = { "application/pdf" = "org.pwmt.zathura.desktop"; };
