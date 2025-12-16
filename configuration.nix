@@ -13,8 +13,10 @@
   ];
 
   # Bootloader.
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -34,8 +36,20 @@
   # Home Manager
   home-manager.users.armand = import ./home.nix;
 
-  # Hyprland
-  # programs.hyprland.enable = true;
+  # Display manager (login screen)
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd niri-session";
+        user = "greeter";
+      };
+    };
+  };
+
+  # Wayland compositor
+  programs.niri.enable = true;
 
   # Enable virtualisation
   virtualisation.virtualbox.guest.enable = true;
