@@ -21,6 +21,16 @@
     typst
     typstfmt
 
+    # Niri essentials
+    fuzzel # App launcher
+    waybar # Status bar
+    swaybg # Wallpaper
+    mako # Notifications
+    swaylock # Screen lock
+    wl-clipboard # Clipboard utilities (wl-copy, wl-paste)
+    grim # Screenshot tool
+    slurp # Region selector for screenshots
+
     # Media
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
     # vlc # Media Player
