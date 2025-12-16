@@ -11,34 +11,33 @@
     # File management
     rucola # Terminal-based markdown note manager
     yazi # Terminal file manager
+    zoxide # Fast cd command that learns your habits
     file
     xdg-utils
     kdePackages.okular # Universal document viewer
     nsxiv # Image viewer
     zathura # PDF viewer
     glow
-
-    # Document creation
     typst
     typstfmt
 
     # Media
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
-    vlc # Media Player
+    # vlc # Media Player
     # dim # Self-hosted media manager
     # qbittorrent # OpenSource Qt Bittorrent client
 
     # Coding
-    jq # JSON
     nushell # Modern shell written in Rust
+    starship # Minimal, blazing fast, and extremely customizable prompt for any shell
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
-    # claude-code # Agentic coding tool
-    # zellij # Terminal workspace with batteries included
-    # niri # Scrollable-tiling Wayland compositor
+    zellij # Terminal workspace with batteries included
+    # claude-code # Agentic coding tool        
 
     # Misc
-    bitwarden-cli # Secure and free password manager for all of your devices
-    wiki-tui # Simple and easy to use Wikipedia Text User Interface
+    cmatrix
+    # bitwarden-cli # Secure and free password manager for all of your devices
+    # wiki-tui # Simple and easy to use Wikipedia Text User Interface
     # hledger # CLI for the hledger accounting system 
   ];
 
