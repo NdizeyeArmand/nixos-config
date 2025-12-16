@@ -101,6 +101,8 @@
     isNormalUser = true;
     description = "Armand";
     extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+    hashedPassword =
+      "$6$hxwFTxPxpnZrx/tr$rGlUiHmz.aXC1prcbH/j0KNlqnv/x.w47UJSwaflH/kcs5LySaeufwxCf2FhqyhFRJFHSFsdKpQqJPgwtvbeD1";
   };
 
   # Automatic garbage collection
