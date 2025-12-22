@@ -1,11 +1,12 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   home.username = "armand";
   home.homeDirectory = "/home/armand";
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
     # Browsing
-    tor-browser-bundle-bin # Privacy-focused browser routing traffic through the Tor network
+    tor-browser # Privacy-focused browser routing traffic through the Tor network
     # mullvad # Mullvad VPN command-line client tools
 
     # File management
@@ -19,7 +20,7 @@
     zathura # PDF viewer
     glow
     typst
-    typstfmt
+    typstyle
 
     # Niri essentials
     fuzzel # App launcher
@@ -41,22 +42,23 @@
     nushell # Modern shell written in Rust
     starship # Minimal, blazing fast, and extremely customizable prompt for any shell
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
+    alacritty
     zellij # Terminal workspace with batteries included
-    # claude-code # Agentic coding tool        
+    # claude-code # Agentic coding tool
 
     # Misc
     cmatrix
     # bitwarden-cli # Secure and free password manager for all of your devices
     # wiki-tui # Simple and easy to use Wikipedia Text User Interface
-    # hledger # CLI for the hledger accounting system 
+    # hledger # CLI for the hledger accounting system
   ];
 
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Dark_Loon";
-    userEmail = "armandgaeln@gmail.com";
-    aliases = {
+    settings.user.name = "Dark_Loon";
+    settings.user.email = "armandgaeln@gmail.com";
+    settings.alias = {
       co = "checkout";
       st = "status";
     };
@@ -72,11 +74,13 @@
         select = "underline";
       };
     };
-    languages.language = [{
-      name = "nix";
-      auto-format = true;
-      formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
-    }];
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      }
+    ];
     themes = {
       autumn_night_transparent = {
         "inherits" = "autumn_night";
@@ -85,14 +89,10 @@
     };
   };
 
-  programs.keychain = {
-    enable = true;
-    keys = [ "id_ed25519" ];
-    agents = [ "ssh" ];
-  };
-
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = { "application/pdf" = "org.pwmt.zathura.desktop"; };
+    defaultApplications = {
+      "application/pdf" = "org.pwmt.zathura.desktop";
+    };
   };
 }

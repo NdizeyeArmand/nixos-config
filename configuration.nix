@@ -2,10 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./packages.nix
     ./keyboard.nix
@@ -41,8 +47,7 @@
     enable = true;
     settings = {
       default_session = {
-        command =
-          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd niri-session";
         user = "greeter";
       };
     };
@@ -96,26 +101,26 @@
   users.users.armand = {
     isNormalUser = true;
     description = "Armand";
-    extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
-    hashedPassword =
-      "$6$hxwFTxPxpnZrx/tr$rGlUiHmz.aXC1prcbH/j0KNlqnv/x.w47UJSwaflH/kcs5LySaeufwxCf2FhqyhFRJFHSFsdKpQqJPgwtvbeD1";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "vboxsf"
+    ];
+    hashedPassword = "$6$hxwFTxPxpnZrx/tr$rGlUiHmz.aXC1prcbH/j0KNlqnv/x.w47UJSwaflH/kcs5LySaeufwxCf2FhqyhFRJFHSFsdKpQqJPgwtvbeD1";
   };
 
   # Automatic garbage collection
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 30d";
+    options = "--delete-older-than 7d";
   };
 
-  # Optimize store automatically
-  nix.optimise.automatic = true;
-
-  # SSH-agent
-  programs.ssh.startAgent = true;
-
   # Enable experimental features
-  nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.extra-experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
