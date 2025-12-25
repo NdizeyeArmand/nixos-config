@@ -15,9 +15,6 @@
     zoxide # Fast cd command that learns your habits
     file
     xdg-utils
-    kdePackages.okular # Universal document viewer
-    nsxiv # Image viewer
-    zathura # PDF viewer
     glow
     typst
     typstyle
@@ -26,6 +23,8 @@
     fuzzel # App launcher
     waybar # Status bar
     swaybg # Wallpaper
+    swayimg # Image viewer
+    zathura # PDF viewer
     mako # Notifications
     swaylock # Screen lock
     wl-clipboard # Clipboard utilities (wl-copy, wl-paste)
@@ -33,6 +32,7 @@
     slurp # Region selector for screenshots
 
     # Media
+    pkgs.obs-studio
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
     # vlc # Media Player
     # dim # Self-hosted media manager
@@ -42,7 +42,6 @@
     nushell # Modern shell written in Rust
     starship # Minimal, blazing fast, and extremely customizable prompt for any shell
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
-    alacritty
     zellij # Terminal workspace with batteries included
     # claude-code # Agentic coding tool
 
