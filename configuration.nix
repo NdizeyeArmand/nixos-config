@@ -1,17 +1,13 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./packages.nix
     ./keyboard.nix
@@ -34,13 +30,16 @@
 
   hardware.graphics.enable = true;
 
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri;
+  };
+
   programs.firefox.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Home Manager
-  home-manager.users.armand = import ./home.nix;
 
   # Display manager (login screen)
   services.greetd = {
@@ -52,9 +51,6 @@
       };
     };
   };
-
-  # Wayland compositor
-  programs.niri.enable = true;
 
   # Enable virtualisation
   virtualisation.virtualbox.guest.enable = true;
@@ -121,14 +117,6 @@
     "nix-command"
     "flakes"
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
