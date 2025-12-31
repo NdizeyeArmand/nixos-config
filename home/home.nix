@@ -5,6 +5,7 @@
     ./programs/niri.nix
     ./programs/waybar/waybar.nix
     ./programs/wlogout.nix
+    ./programs/yazi/yazi.nix
   ];
 
   home.username = "armand";
