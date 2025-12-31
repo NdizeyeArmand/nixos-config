@@ -183,9 +183,21 @@
 
     window-rules = [
       {
-        # This app-id regular expression will work for both:
-        # - host Firefox (app-id is "firefox")
-        # - Flatpak Firefox (app-id is "org.mozilla.firefox")
+        opacity = 0.95;
+      }
+
+      # Terminals slightly more transparent
+      {
+        matches = [ { app-id = "^(foot|ghostty)$"; } ];
+        opacity = 0.90;
+      }
+
+      # Keep these fully opaque
+      {
+        matches = [ { app-id = "^(vlc|mpv)$"; } ];
+        opacity = 1.0;
+      }
+      {
         matches = [
           {
             app-id = "^.*firefox$";
@@ -193,6 +205,7 @@
           }
         ];
         open-floating = true;
+        opacity = 1.0;
       }
     ];
 
