@@ -6,10 +6,6 @@
 }:
 {
   programs.niri.settings = {
-    environment = {
-      DISPLAY = null;
-    };
-
     layout = {
       # Set gaps around windows in logical pixels.
       gaps = 16;

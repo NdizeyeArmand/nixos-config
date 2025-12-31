@@ -20,3 +20,5 @@ ix-config`.
 
 Other people from whom I learned and copied:
 - [fufexan/dotfiles](https://github.com/fufexan/dotfiles)
+- [Pipshag/dotfiles_nord](https://github.com/Pipshag/dotfiles_nord)
+- [Igaboury](https://github.com/lgaboury/Sway-Waybar-Install-Script)

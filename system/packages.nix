@@ -14,4 +14,8 @@
     ripgrep
     findutils # GNU Find Utilities, the basic directory searching utilities of the GNU operating system
   ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+  ];
 }

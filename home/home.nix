@@ -3,7 +3,7 @@
   imports = [
     ../modules/theme.nix
     ./programs/niri.nix
-    ./programs/waybar.nix
+    ./programs/waybar/waybar.nix
     ./programs/wlogout.nix
   ];
 
@@ -41,10 +41,12 @@
     wl-clipboard # Clipboard utilities (wl-copy, wl-paste)
     grim # Screenshot tool
     slurp # Region selector for screenshots
-    pkgs.wlogout
+    wlogout
 
     # Media
-    pkgs.obs-studio
+    blueberry
+    pavucontrol
+    obs-studio
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
     # vlc # Media Player
     # dim # Self-hosted media manager
@@ -55,10 +57,12 @@
     starship # Minimal, blazing fast, and extremely customizable prompt for any shell
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
     zellij # Terminal workspace with batteries included
+    curl
     # claude-code # Agentic coding tool
 
     # Misc
     cmatrix
+    htop
     # bitwarden-cli # Secure and free password manager for all of your devices
     # wiki-tui # Simple and easy to use Wikipedia Text User Interface
     # hledger # CLI for the hledger accounting system
