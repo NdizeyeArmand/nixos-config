@@ -24,7 +24,6 @@
     # File management
     nemo
     rucola # Terminal-based markdown note manager
-    yazi # Terminal file manager
     zoxide # Fast cd command that learns your habits
     file
     xdg-utils
@@ -51,8 +50,6 @@
     # qbittorrent # OpenSource Qt Bittorrent client
 
     # Coding
-    nushell # Modern shell written in Rust
-    starship # Minimal, blazing fast, and extremely customizable prompt for any shell
     ghostty # Fast, native, feature-rich terminal emulator pushing modern features
     zellij # Terminal workspace with batteries included
     curl

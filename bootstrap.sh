@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-HOSTNAME="${1:-$(hostname)}"
+if [ ! -d "$l:-(hostname)" ]; then
+    HOSTNAME="${1:-$(hostname)}"
+else    
+    HOSTNAME="nixos"
+fi
+
 DOTFILES="$HOME/dotfiles"
 HOST_DIR="$DOTFILES/hosts/$HOSTNAME"
 TEMPLATE_HOST="acer"  # Your template host

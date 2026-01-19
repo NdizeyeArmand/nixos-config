@@ -59,7 +59,7 @@
         "custom/pacman" = {
           "format" = "<big>󰏖</big>  {}";
           "interval" = 3600; # every hour
-          "exec" = "checkupdates | wc -l"; # # of updates
+          "exec" = "checkupdates | wc -l"; # # of updatd ds
           "exec-if" = "exit 0"; # always run; consider advanced run conditions
           "on-click" = "ghostty -e 'yay'; pkill -SIGRTMIN+8 waybar"; # update system
           "signal" = 8;
@@ -138,7 +138,9 @@
           "format" = "{icon}";
           # "format-alt" = "{status}";
           "format-icons" = {
-            "enabled" = "";
+            "default" = [
+              ""
+            ];
           };
           "on-click" = "blueberry";
         };

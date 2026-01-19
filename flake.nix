@@ -52,6 +52,42 @@
               }
             ];
           };
+          desktop = nixpkgs.lib.nixosSystem {
+            modules = [
+              ./hosts/acer
+              {
+                nixpkgs.config.allowUnfreePredicate =
+                  pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+              }
+              niri.nixosModules.niri
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.armand = ./home;
+                home-manager.backupFileExtension = "backup";
+
+              }
+            ];
+          };
+          server = nixpkgs.lib.nixosSystem {
+            modules = [
+              ./hosts/acer
+              {
+                nixpkgs.config.allowUnfreePredicate =
+                  pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+              }
+              niri.nixosModules.niri
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.armand = ./home;
+                home-manager.backupFileExtension = "backup";
+
+              }
+            ];
+          };
         };
       };
     };

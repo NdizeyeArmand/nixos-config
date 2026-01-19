@@ -6,7 +6,10 @@
 }:
 {
   imports = [
+    ./carapace
     ./niri.nix
+    ./nushell
+    ./starship
     ./waybar
     ./wlogout.nix
     ./yazi
