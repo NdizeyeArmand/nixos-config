@@ -502,7 +502,7 @@
 
     # Startup applications
     spawn-at-startup = [
-      { command = [ "/home/armand/Pictures/Wallpaper/wallpaper.sh" ]; }
+      # { command = [ "/home/armand/Pictures/Wallpaper/wallpaper.sh" ]; }
       { command = [ "waybar" ]; }
       { command = [ "mako" ]; }
     ];

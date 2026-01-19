@@ -15,13 +15,10 @@ xkb_symbols "basic" {
   key <AE10>  { type = "FOUR_LEVEL_ALPHABETIC", [     agrave,          0,    braceright,       degree ]};
   key <AE11>  { type = "FOUR_LEVEL_ALPHABETIC", [ parenright,     degree,     backslash, questiondown ]};
   key <AE12>  { type = "FOUR_LEVEL_ALPHABETIC", [      minus, underscore,  dead_cedilla,  dead_ogonek ]};
-
-  key <AD11>  { type = "FOUR_LEVEL_ALPHABETIC", [dead_circumflex, dead_diaeresis, bracketleft, dead_abovering]};
+  key <AD11>  { type = "FOUR_LEVEL_ALPHABETIC", [ dead_circumflex,  dead_diaeresis,      bracketleft,   dead_abovering ]}; // ◌̂ ◌̈ [ ◌̊
   key <AD12>  { type = "FOUR_LEVEL_ALPHABETIC", [     dollar,   asterisk,  bracketright,  dead_macron ]};
-
   key <AC11>  { type = "FOUR_LEVEL_ALPHABETIC", [     ugrave,    percent,    dead_acute,   dead_caron ]};
   key <BKSL>  { type = "FOUR_LEVEL_ALPHABETIC", [         mu,   sterling,    dead_grave,   dead_breve ]};
-
   key <LSGT>  { type = "FOUR_LEVEL_ALPHABETIC", [       less,    greater,     backslash,    backslash ]};
   key <AB01>  { type = "FOUR_LEVEL_ALPHABETIC", [          w,          W, guillemotleft,         less ]};
   key <AB07>  { type = "FOUR_LEVEL_ALPHABETIC", [      comma,   question,  dead_cedilla,    masculine ]};

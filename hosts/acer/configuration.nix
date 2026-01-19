@@ -20,6 +20,7 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
+  boot.loader.grub.default = "saved";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -55,6 +56,18 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "nl_BE.UTF-8";
+    LC_IDENTIFICATION = "nl_BE.UTF-8";
+    LC_MEASUREMENT = "nl_BE.UTF-8";
+    LC_MONETARY = "nl_BE.UTF-8";
+    LC_NAME = "nl_BE.UTF-8";
+    LC_NUMERIC = "nl_BE.UTF-8";
+    LC_PAPER = "nl_BE.UTF-8";
+    LC_TELEPHONE = "nl_BE.UTF-8";
+    LC_TIME = "nl_BE.UTF-8";
+  };
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.

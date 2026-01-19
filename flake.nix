@@ -36,7 +36,7 @@
         nixosConfigurations = {
           nixos = nixpkgs.lib.nixosSystem {
             modules = [
-              ./system/configuration.nix
+              ./hosts/acer
               {
                 nixpkgs.config.allowUnfreePredicate =
                   pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
@@ -46,7 +46,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users.armand = ./home/home.nix;
+                home-manager.users.armand = ./home;
                 home-manager.backupFileExtension = "backup";
 
               }

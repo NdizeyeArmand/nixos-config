@@ -1,11 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/theme.nix
-    ./programs/niri.nix
-    ./programs/waybar/waybar.nix
-    ./programs/wlogout.nix
-    ./programs/yazi/yazi.nix
+    ./programs
+    ../modules
   ];
 
   home.username = "armand";
