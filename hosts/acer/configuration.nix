@@ -23,7 +23,34 @@
   boot.loader.grub.default = "saved";
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+  networking.networkmanager.ensureProfiles.profiles = {
+    "WiFi-2.4-908E" = {
+      connection = {
+        id = "WiFi-2.4-908E";
+        permissions = "user:armand:;";
+        timestamp = "1768842962";
+        type = "wifi";
+        uuid = "b18e9274-53aa-48ae-a7bc-ea9c25ed8c39";
+      };
+      ipv4 = {
+        method = "auto";
+      };
+      ipv6 = {
+        addr-gen-mode = "stable-privacy";
+        method = "auto";
+      };
+      proxy = { };
+      wifi = {
+        mode = "infrastructure";
+        ssid = "WiFi-2.4-908E";
+      };
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk-flags = "1";
+      };
+    };
+  };
 
   hardware.graphics.enable = true;
 
@@ -33,9 +60,6 @@
   };
 
   programs.firefox.enable = true;
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Display manager (login screen)
   services.greetd = {
@@ -99,7 +123,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "vboxsf"
       "input"
     ];
     hashedPassword = "$6$hxwFTxPxpnZrx/tr$rGlUiHmz.aXC1prcbH/j0KNlqnv/x.w47UJSwaflH/kcs5LySaeufwxCf2FhqyhFRJFHSFsdKpQqJPgwtvbeD1";

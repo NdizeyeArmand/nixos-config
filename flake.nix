@@ -10,6 +10,11 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -18,6 +23,7 @@
       nixpkgs,
       home-manager,
       niri,
+      sops-nix,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -60,6 +66,7 @@
                   pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
               }
               niri.nixosModules.niri
+              sops-nix.nixosModules.sops
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
