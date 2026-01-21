@@ -48,6 +48,7 @@
                   pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
               }
               niri.nixosModules.niri
+              sops-nix.nixosModules.sops
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -85,6 +86,7 @@
                   pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
               }
               niri.nixosModules.niri
+              sops-nix.nixosModules.sops
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;

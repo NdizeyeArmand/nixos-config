@@ -1,39 +1,32 @@
 #!/usr/bin/env bash
 set -e
 
-if [ ! -d "$l:-(hostname)" ]; then
-    HOSTNAME="${1:-$(hostname)}"
-else    
-    HOSTNAME="nixos"
-fi
+# Get the host argument (default to current hostname if not provided)
+TARGET_HOST="${1:-$HOSTNAME}"
 
 DOTFILES="$HOME/dotfiles"
-HOST_DIR="$DOTFILES/hosts/$HOSTNAME"
-TEMPLATE_HOST="acer"  # Your template host
+HOST_DIR="$DOTFILES/hosts/$TARGET_HOST"
 
-# Create host directory if it doesn't exist
-if [ ! -d "$HOST_DIR" ]; then
-    echo "Creating new host configuration for $HOSTNAME based on $TEMPLATE_HOST..."
+# Check if this is a valid/explicit host selection
+if [[ "$TARGET_HOST" == "desktop" ]] || [[ "$TARGET_HOST" == "server" ]]; then
+    echo "Updating hardware-configuration.nix for explicit host: $TARGET_HOST"
     
-    # Copy template host directory
-    cp -r "$DOTFILES/hosts/$TEMPLATE_HOST" "$HOST_DIR"
-    
-    # Update hostname in configuration.nix
-    sed -i "s/networking.hostName = \"$TEMPLATE_HOST\"/networking.hostName = \"$HOSTNAME\"/" "$HOST_DIR/configuration.nix"
-    
-    # Copy new hardware config
     sudo cp /etc/nixos/hardware-configuration.nix "$HOST_DIR/"
     
-    echo "Host configuration created from $TEMPLATE_HOST template."
     echo "Hardware config updated. Review $HOST_DIR/configuration.nix for any needed changes."
+    
 else
-    echo "Host directory already exists. Updating hardware-configuration.nix..."
-    sudo cp /etc/nixos/hardware-configuration.nix "$HOST_DIR/"
+    # Fallback to acer directory
+    echo "Updating hardware-configuration.nix for default host (acer)..."
+    ACER_DIR="$DOTFILES/hosts/acer"
+    sudo cp /etc/nixos/hardware-configuration.nix "$ACER_DIR/"
+    HOST_DIR="$ACER_DIR"
+    TARGET_HOST="acer"
 fi
 
-# Optionally rebuild immediately
+# Single rebuild prompt
 read -p "Rebuild system now? (y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo nixos-rebuild switch --flake "$DOTFILES#$HOSTNAME"
+    sudo nixos-rebuild switch --flake "$DOTFILES#$TARGET_HOST"
 fi

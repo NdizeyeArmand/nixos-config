@@ -1,0 +1,8 @@
+keys:
+  - &host_nixos age1nk8leddm7qeat9j0320hpn5r2rjkhprp00k7tx8yv7dda7xks9zsq9gc5n
+
+creation_rules:
+  - path_regex: \.env$
+    key_groups:
+      - age:
+          - *host_nixos

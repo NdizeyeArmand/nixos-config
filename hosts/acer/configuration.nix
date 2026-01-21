@@ -22,9 +22,60 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
 
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.env;
+    defaultSopsFormat = "dotenv";
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+    secrets = {
+      home_wifi_1 = {
+        sopsFile = ../../secrets/home_wifi_1.env;
+        restartUnits = [ "NetworkManager.service" ];
+      };
+      home_wifi_2 = {
+        sopsFile = ../../secrets/home_wifi_2.env;
+        restartUnits = [ "NetworkManager.service" ];
+      };
+      user_creds = {
+        sopsFile = ../../secrets/secrets.env;
+        neededForUsers = true;
+      };
+    };
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.networkmanager.ensureProfiles.environmentFiles = [
+    config.sops.secrets.home_wifi_1.path
+    config.sops.secrets.home_wifi_2.path
+  ];
   networking.networkmanager.ensureProfiles.profiles = {
+    Telenet0706906 = {
+      connection = {
+        id = "Telenet0706906";
+        interface-name = "wlp2s0";
+        type = "wifi";
+        uuid = "5e0a13a6-e5b3-4c91-8956-b2fe94bad816";
+        autoconnect-priority = 50;
+      };
+      ipv4 = {
+        method = "auto";
+      };
+      ipv6 = {
+        addr-gen-mode = "default";
+        method = "auto";
+      };
+      proxy = { };
+      wifi = {
+        mode = "infrastructure";
+        ssid = "Telenet0706906";
+      };
+      wifi-security = {
+        auth-alg = "open";
+        key-mgmt = "wpa-psk";
+        psk = "$HOME_WIFI_2_PASSWORD";
+      };
+    };
     "WiFi-2.4-908E" = {
       connection = {
         id = "WiFi-2.4-908E";
@@ -32,6 +83,7 @@
         timestamp = "1768842962";
         type = "wifi";
         uuid = "b18e9274-53aa-48ae-a7bc-ea9c25ed8c39";
+        autoconnect-priority = 100;
       };
       ipv4 = {
         method = "auto";
@@ -46,8 +98,9 @@
         ssid = "WiFi-2.4-908E";
       };
       wifi-security = {
+        auth-alg = "open";
         key-mgmt = "wpa-psk";
-        psk-flags = "1";
+        psk = "$HOME_WIFI_1_PASSWORD";
       };
     };
   };
@@ -114,7 +167,7 @@
   };
 
   # Set default editor
-  environment.variables.EDITOR = "helix";
+  environment.variables.EDITOR = "hx";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.armand = {
@@ -123,9 +176,9 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "input"
+      "inp.t"
     ];
-    hashedPassword = "$6$hxwFTxPxpnZrx/tr$rGlUiHmz.aXC1prcbH/j0KNlqnv/x.w47UJSwaflH/kcs5LySaeufwxCf2FhqyhFRJFHSFsdKpQqJPgwtvbeD1";
+    hashedPasswordFile = config.sops.secrets.user_creds.path;
   };
 
   # Automatic garbage collection
