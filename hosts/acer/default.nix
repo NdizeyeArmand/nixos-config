@@ -11,5 +11,6 @@
     ./keyboard.nix
     ./packages.nix
     ./services.nix
+    ./sops.nix
   ];
 }

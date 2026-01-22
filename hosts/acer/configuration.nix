@@ -12,6 +12,7 @@
     ./packages.nix
     ./keyboard.nix
     ./services.nix
+    ./sops.nix
   ];
 
   # Bootloader.
@@ -21,27 +22,6 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
-
-  sops = {
-    defaultSopsFile = ../../secrets/secrets.env;
-    defaultSopsFormat = "dotenv";
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-    secrets = {
-      home_wifi_1 = {
-        sopsFile = ../../secrets/home_wifi_1.env;
-        restartUnits = [ "NetworkManager.service" ];
-      };
-      home_wifi_2 = {
-        sopsFile = ../../secrets/home_wifi_2.env;
-        restartUnits = [ "NetworkManager.service" ];
-      };
-      user_creds = {
-        sopsFile = ../../secrets/secrets.env;
-        neededForUsers = true;
-      };
-    };
-  };
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -56,7 +36,7 @@
         interface-name = "wlp2s0";
         type = "wifi";
         uuid = "5e0a13a6-e5b3-4c91-8956-b2fe94bad816";
-        autoconnect-priority = 50;
+        autoconnect-priority = 100;
       };
       ipv4 = {
         method = "auto";
@@ -83,7 +63,7 @@
         timestamp = "1768842962";
         type = "wifi";
         uuid = "b18e9274-53aa-48ae-a7bc-ea9c25ed8c39";
-        autoconnect-priority = 100;
+        autoconnect-priority = 50;
       };
       ipv4 = {
         method = "auto";
@@ -124,9 +104,6 @@
       };
     };
   };
-
-  # Enable virtualisation
-  virtualisation.virtualbox.guest.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
@@ -175,6 +152,7 @@
     description = "Armand";
     extraGroups = [
       "networkmanager"
+      "input"
       "wheel"
       "inp.t"
     ];

@@ -7,7 +7,7 @@ top. Using [flakes](https://nixos.wiki/wiki/Flakes) and
 [flake-parts](https://github.com/hercules-ci/flake-parts).
 
 See an overview of the flake outputs by running
-`nix flake show git+https://gitlab.com/home3574541/dotfiles`.
+`nix flake show git+https://gitlab.com/DarkLoon/dotfiles`.
 
 
 # Structure
@@ -22,10 +22,10 @@ See an overview of the flake outputs by running
 <details>
   <summary>Install</summary>
 
-To install NixOS use the nix installer ISO
+To install NixOS use the nix installer ISO.
 Then run the following:
 ```bash
-git clone gitlab.com/home3574541/dotfiles ~/
+git clone gitlab.com/DarkLoon/dotfiles ~/
 cd ~/dotfiles
 
 # To build system configuration (alternatively ./bootstrap.sh desktop or ./bootstrap.sh server)

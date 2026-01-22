@@ -6,6 +6,14 @@
 }:
 {
   programs.niri.settings = {
+    input = {
+      keyboard = {
+        xkb = {
+          layout = "be_custom";
+        };
+        numlock = true;
+      };
+    };
     layout = {
       # Set gaps around windows in logical pixels.
       gaps = 16;
