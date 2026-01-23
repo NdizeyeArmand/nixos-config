@@ -46,7 +46,8 @@
           "tooltip" = false;
         };
         "niri/language" = {
-          "format-be" = "<big>󰌌</big>  🇧🇪";
+          "format" = "<big>󰌌</big>  🇧🇪  {}";
+          # "format-be" = "<big>󰌌</big>  🇧🇪";
         };
         "keyboard-state" = {
           "capslock" = true;

@@ -94,6 +94,8 @@
 
   programs.firefox.enable = true;
 
+  services.tlp.enable = true;
+
   # Display manager (login screen)
   services.greetd = {
     enable = true;
