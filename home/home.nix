@@ -9,6 +9,8 @@
   home.homeDirectory = "/home/armand";
   home.stateVersion = "25.05";
 
+  systemd.user.startServices = "sd-switch";
+
   programs.fuzzel.enable = true;
   programs.swaylock.enable = true;
   programs.waybar.enable = true;
