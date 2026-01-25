@@ -1,4 +1,4 @@
-<h1 align="center">Dark_Loon/dotfiles</h1>
+<h1 align="center">DarkLoon/dotfiles</h1>
 
 # About
 
@@ -14,7 +14,8 @@ See an overview of the flake outputs by running
 
 - [home](./home): Home Manager config
 - [module](./modules): Custom options
-- [system](./hosts): Multiple machine configurations
+- [hosts](./hosts): Multiple machine configurations
+- [secrets](./secrets): SOPS-encrypted files
 
 
 # Usage
