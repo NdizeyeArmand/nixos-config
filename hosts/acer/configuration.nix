@@ -107,6 +107,15 @@
     };
   };
 
+  virtualisation.docker = {
+    enable = true;
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
 
@@ -157,6 +166,7 @@
       "input"
       "wheel"
       "inp.t"
+      "docker"
     ];
     hashedPasswordFile = config.sops.secrets.user_creds.path;
   };
