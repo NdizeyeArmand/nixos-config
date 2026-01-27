@@ -15,13 +15,17 @@
     ./sops.nix
   ];
 
-  # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
+  boot.plymouth.enable = true;
+  boot.kernelParams = [
+    "quiet"
+  ];
+  #boot.consoleLogLevel = 1;
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -96,7 +100,6 @@
 
   services.tlp.enable = true;
 
-  # Display manager (login screen)
   services.greetd = {
     enable = true;
     settings = {
@@ -116,10 +119,8 @@
     };
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Brussels";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -134,17 +135,12 @@
     LC_TIME = "nl_BE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Configure console keymap
   console.keyMap = "be-latin1";
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -154,10 +150,8 @@
     pulse.enable = true;
   };
 
-  # Set default editor
   environment.variables.EDITOR = "hx";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.armand = {
     isNormalUser = true;
     description = "Armand";
@@ -171,14 +165,12 @@
     hashedPasswordFile = config.sops.secrets.user_creds.path;
   };
 
-  # Automatic garbage collection
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
 
-  # Enable experimental features
   nix.settings.extra-experimental-features = [
     "nix-command"
     "flakes"

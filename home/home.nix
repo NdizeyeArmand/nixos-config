@@ -111,15 +111,4 @@
       "application/pdf" = "org.pwmt.zathura.desktop";
     };
   };
-
-  xdg.desktopEntries.ghostty = {
-    name = "Ghostty";
-    exec = "ghostty";
-    terminal = false;
-    categories = [
-      "System"
-      "TerminalEmulator"
-    ];
-    icon = "${pkgs.ghostty}/share/icons/hicolor/128x128/apps/com.mitchellh.ghostty.png";
-  };
 }

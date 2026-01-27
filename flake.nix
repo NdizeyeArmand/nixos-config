@@ -15,9 +15,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
   };
 
   outputs =
@@ -26,7 +23,6 @@
       nixpkgs,
       nixgl,
       home-manager,
-      ghostty,
       niri,
       sops-nix,
       ...
@@ -48,25 +44,6 @@
           nixos = nixpkgs.lib.nixosSystem {
             modules = [
               ./hosts/acer
-              (
-                { pkgs, ... }:
-                {
-                  environment.systemPackages = [
-                    (pkgs.symlinkJoin {
-                      name = "ghostty-wrapped";
-                      paths = [
-                        (pkgs.writeShellScriptBin "ghostty" ''
-                          export LIBGL_ALWAYS_SOFTWARE=1
-                          export GALLIUM_DRIVER=llvmpipe
-                          exec ${ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ghostty "$@"
-                        '')
-                      ];
-                    })
-
-                    pkgs.mesa
-                  ];
-                }
-              )
               {
                 nixpkgs.config.allowUnfreePredicate =
                   pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
@@ -79,7 +56,6 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.armand = ./home;
                 home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = { inherit ghostty; };
               }
             ];
           };
