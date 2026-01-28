@@ -2,7 +2,7 @@
   ...
 }:
 {
-  flake.parts.templates = {
+  flake.templates = {
     elm = {
       path = ./elm;
       description = "Elm dev environment";

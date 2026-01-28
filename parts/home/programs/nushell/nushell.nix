@@ -83,13 +83,13 @@
         let template_lower = ($template | str downcase)
 
         let template_path = match $template_lower { # ← Match against user input
-          "elm" | "e" => "gitlab:Darkloon/dotfiles#elm",
-          "haskell" | "h" => "gitlab:Darkloon/dotfiles#haskell",
-          "java" | "jv" => "gitlab:Darkloon/dotfiles#java",
-          "python" | "py" => "gitlab:Darkloon/dotfiles#python",
-          "rust" | "rs" => "gitlab:Darkloon/dotfiles#rust",
-          "typescript" | "ts" => "gitlab:Darkloon/dotfiles#typescript",
-          "typst" | "t" => "gitlab:Darkloon/dotfiles#typst",          
+          "elm" | "e" => "../../../templates/elm",
+          "haskell" | "h" => "../../../templates/haskell",
+          "java" | "jv" => "../../../templates/java",
+          "python" | "py" => "../../../templates/python",
+          "rust" | "rs" => "../../../templates/rust",
+          "typescript" | "ts" => "../../../templates/typescript",
+          "typst" | "t" => "../../../templates/typst",          
           _ => {
             print $"Unknown template: ($template_lower)"
             print "Available: elm, haskell, java python, rust, typescript"
