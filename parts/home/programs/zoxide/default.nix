@@ -6,6 +6,6 @@
 }:
 {
   imports = [
-    ./helix.nix
+    ./zoxide.nix
   ];
 }

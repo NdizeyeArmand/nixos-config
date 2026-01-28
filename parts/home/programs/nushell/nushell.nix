@@ -89,6 +89,7 @@
           "python" | "py" => "gitlab:Darkloon/dotfiles#python",
           "rust" | "rs" => "gitlab:Darkloon/dotfiles#rust",
           "typescript" | "ts" => "gitlab:Darkloon/dotfiles#typescript",
+          "typst" | "t" => "gitlab:Darkloon/dotfiles#typst",          
           _ => {
             print $"Unknown template: ($template_lower)"
             print "Available: elm, haskell, java python, rust, typescript"

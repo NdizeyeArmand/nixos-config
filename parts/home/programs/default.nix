@@ -7,11 +7,13 @@
 {
   imports = [
     ./carapace
+    ./helix
     ./niri
     ./nushell
     ./starship
     ./waybar
     ./wlogout
     ./yazi
+    ./zoxide
   ];
 }
