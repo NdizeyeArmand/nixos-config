@@ -3,7 +3,7 @@
   programs.helix = {
     enable = true;
     settings = {
-      theme = "nord_night_transparent";
+      theme = "catppuccin_macchiato";
       editor.cursor-shape = {
         normal = "block";
         insert = "bar";
@@ -49,11 +49,11 @@
         language-servers = [ "typescript-language-server" ];
       }
     ];
-    themes = {
-      autumn_night_transparent = {
-        "inherits" = "autumn_night";
-        "ui.background" = { };
-      };
-    };
+    # themes = {
+    #   nord_night_transparent = {
+    #     "inherits" = "nord_night";
+    #     "ui.background" = { };
+    #   };
+    # };
   };
 }

@@ -2,7 +2,7 @@
   ...
 }:
 {
-  flake.templates = {
+  flake.parts.templates = {
     elm = {
       path = ./elm;
       description = "Elm dev environment";
@@ -26,6 +26,10 @@
     typescript = {
       path = ./typescript;
       description = "Typescript dev environment";
+    };
+    typst = {
+      path = ./typst;
+      description = "Typst dev environment";
     };
   };
 }

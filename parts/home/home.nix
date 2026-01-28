@@ -82,11 +82,6 @@
     };
   };
 
-  programs.zoxide = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
