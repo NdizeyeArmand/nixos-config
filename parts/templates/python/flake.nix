@@ -72,10 +72,14 @@
               venvVersionWarn
             '';
 
-            packages = with python.pkgs; [
-              venvShellHook
-              pip
-              python313Packages.python-lsp-server
+            packages = [
+              (python.withPackages (
+                ps: with ps; [
+                  pip
+                  python-lsp-server
+                  # Add other Python packages here
+                ]
+              ))
 
               # Add whatever else you'd like here.
               # pkgs.basedpyright

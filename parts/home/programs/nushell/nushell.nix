@@ -83,16 +83,16 @@
         let template_lower = ($template | str downcase)
 
         let template_path = match $template_lower { # ← Match against user input
-          "elm" | "e" => "../../../templates/elm",
-          "haskell" | "h" => "../../../templates/haskell",
-          "java" | "jv" => "../../../templates/java",
-          "python" | "py" => "../../../templates/python",
-          "rust" | "rs" => "../../../templates/rust",
-          "typescript" | "ts" => "../../../templates/typescript",
-          "typst" | "t" => "../../../templates/typst",          
+          "elm" | "e" => "git+file:///home/armand/dotfiles#elm",
+          "haskell" | "h" => "git+file:///home/armand/dotfiles#haskell",
+          "java" | "jv" => "git+file:///home/armand/dotfiles#java",
+          "python" | "py" => "git+file:///home/armand/dotfiles#python",
+          "rust" | "rs" => "git+file:///home/armand/dotfiles#rust",
+          "typescript" | "ts" => "git+file:///home/armand/dotfiles#typescript",
+          "typst" | "t" => "git+file:///home/armand/dotfiles#typst",          
           _ => {
             print $"Unknown template: ($template_lower)"
-            print "Available: elm, haskell, java python, rust, typescript"
+            print "Available: elm, haskell, java python, rust, typescript, typst"
             return
           }
         }
