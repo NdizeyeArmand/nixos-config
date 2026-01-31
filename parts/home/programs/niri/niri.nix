@@ -478,6 +478,17 @@
       # "Mod+Space".action.switch-layout = "next";
       # "Mod+Shift+Space".action.switch-layout = "prev";
 
+      "Ctrl+Alt+O".action.spawn = [
+        "obs-cmd"
+        "recording"
+        "start"
+      ];
+      "Ctrl+Alt+P".action.spawn = [
+        "obs-cmd"
+        "recording"
+        "stop"
+      ];
+
       "Print".action.screenshot = {
         show-pointer = false;
       };

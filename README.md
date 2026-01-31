@@ -35,6 +35,15 @@ cd ~/dotfiles
 </details>
 
 
+Use a template:
+```bash
+# Provide a development shell (alternatively nix flake init -t gitlab:Darkloon/dotfiles#java)
+dvt java
+dvt java newProject
+dvt typst my-project
+dvt elm
+```
+
 # Features
 
 Some features of my config:

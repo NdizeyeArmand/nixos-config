@@ -33,7 +33,6 @@
     # Niri essentials
     swaybg # Wallpaper
     swayimg # Image viewer
-    zathura # PDF viewer
     wl-clipboard # Clipboard utilities (wl-copy, wl-paste)
     grim # Screenshot tool
     slurp # Region selector for screenshots
@@ -43,6 +42,7 @@
     blueberry
     pavucontrol
     obs-studio
+    obs-cmd
     yt-dlp # Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)
     # vlc # Media Player
     # dim # Self-hosted media manager

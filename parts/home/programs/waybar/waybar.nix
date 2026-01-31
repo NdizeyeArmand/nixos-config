@@ -87,7 +87,7 @@
           };
         };
         "custom/weather" = {
-          "exec" = "curl -s 'https://wttr.in/?format=1' 2>/dev/null || echo ''";
+          "exec" = "curl -s 'https://wttr.in/50.8504,4.34878?format=1' 2>/dev/null || echo ''";
           "interval" = 3600;
         };
         "cpu" = {

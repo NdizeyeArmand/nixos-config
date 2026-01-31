@@ -35,8 +35,6 @@
                 typst
                 typstyle
                 tinymist
-                typst-live
-                typstwriter
               ]
               ++ (with typstPackages; [
                 elspub
