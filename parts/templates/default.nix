@@ -15,9 +15,9 @@
       path = ./java;
       description = "Java dev environment";
     };
-    python = {
-      path = ./python;
-      description = "Python dev environment";
+    go = {
+      path = ./go;
+      description = "Go dev environment";
     };
     rust = {
       path = ./rust;
