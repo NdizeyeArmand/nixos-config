@@ -20,9 +20,13 @@ let
       loop {
         let pid = (^pidof swaybg | complete | get stdout | str trim)
 
-        let current_time = (date now | format date "%s" | into int)
+        # Reset counting at midnight every day (constant start time)
+        let now = (date now)
+        let midnight = ('Today 00:00' | date from-human)
+        let seconds_since_midnight = (($now - $midnight) / 1sec)
+
         let interval_seconds = ($interval / 1sec) # Convert duration from nanoseconds to seconds
-        let division_result = ($current_time / $interval_seconds)
+        let division_result = ($seconds_since_midnight / $interval_seconds)
         let mod_result = (($division_result | math floor) mod $num_images)
         let image_num = (
           ($mod_result + 1)
@@ -30,7 +34,7 @@ let
           | fill --alignment right --character "0" --width 3
         )
 
-        print $"Debug: current_time=($current_time), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
+        #print $"Debug: current_time=($current_time), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
 
         let image_path = $"($image_dir)/($image_num).png"
 
