@@ -30,7 +30,7 @@ let
           | fill --alignment right --character "0" --width 3
         )
 
-        #print $"Debug: current_time=($current_time), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
+        print $"Debug: current_time=($current_time), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
 
         let image_path = $"($image_dir)/($image_num).png"
 

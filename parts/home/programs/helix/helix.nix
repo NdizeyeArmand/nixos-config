@@ -57,8 +57,8 @@
           language-servers = [ "rust-analyzer" ];
         }
         {
-          name = "python";
-          language-servers = [ "pylsp" ];
+          name = "go";
+          language-servers = [ "gopls" ];
         }
         {
           name = "typst";
