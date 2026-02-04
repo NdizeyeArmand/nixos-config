@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   # services.nextcloud = {
@@ -10,7 +10,7 @@
   #    adminpassFile = "/path/to/admin-pass-file";
   #  };
   # };
-  
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";

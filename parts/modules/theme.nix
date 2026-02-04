@@ -11,22 +11,29 @@ let
     #!${pkgs.nushell}/bin/nu
 
     def main [
-      --interval: duration = 1.5hr
+      --interval: string = "1.5hr"
       --num_images: int = 16
     ] {
       let image_dir = "${cfg.imageDir}"
-
       cd $image_dir
+
+      mut loop_count = 0
+
       loop {
-        let pid = (^pidof swaybg | complete | get stdout | str trim)
-
-        # Reset counting at midnight every day (constant start time)
+        $loop_count = $loop_count + 1
+        #print $"Loop iteration: ($loop_count)"
+        
+        # Calculate which image to show
         let now = (date now)
-        let midnight = ('Today 00:00' | date from-human)
-        let seconds_since_midnight = (($now - $midnight) / 1sec)
+        let seconds_today = (
+                            ($now | format date '%H' | into int) * 3600 +
+                            ($now | format date '%M' | into int) * 60 +
+                            ($now | format date '%S' | into int)
+        )
 
-        let interval_seconds = ($interval / 1sec) # Convert duration from nanoseconds to seconds
-        let division_result = ($seconds_since_midnight / $interval_seconds)
+        let interval_duration = ($interval | into duration) 
+        let interval_seconds = ($interval_duration / 1sec) # Convert duration from nanoseconds to seconds
+        let division_result = ($seconds_today / $interval_seconds)
         let mod_result = (($division_result | math floor) mod $num_images)
         let image_num = (
           ($mod_result + 1)
@@ -34,21 +41,26 @@ let
           | fill --alignment right --character "0" --width 3
         )
 
-        #print $"Debug: current_time=($current_time), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
+        #print $"Debug: current_time=($now), interval=($interval_seconds), division=($division_result), mod=($mod_result), image_num=($image_num)"
 
         let image_path = $"($image_dir)/($image_num).png"
+      
+        if not ($image_path | path exists) {
+          #print $"ERROR: Image not found: ($image_path)"
+        } else {
+          #print $"Setting wallpaper: ($image_path)"
+          
+          ^${pkgs.bash}/bin/bash -c $"${pkgs.swaybg}/bin/swaybg -i '($image_path)' -m fill & disown"
 
-        if ($image_path | path exists) {
-          do { ^${pkgs.swaybg}/bin/swaybg -i $image_path -m fill } | ignore
           sleep 1sec
-          if ($pid != "") {
+
+          let all_pids = (ps | where name =~ swaybg | get pid)
+          let old_pids = ($all_pids | drop)
+          for pid in $old_pids {
             try { ^kill $pid } catch { }
           }
-        } else {
-          print $"Image not found: ($image_path)"
         }
-
-        sleep ($interval - 1sec)
+        sleep 1min
       }
     }
   '';
@@ -81,37 +93,16 @@ in
       Unit = {
         Description = "Time-based wallpaper cycling";
         After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
       };
 
       Service = {
+        Type = "simple";
         ExecStart = "${wallpaperScript}/bin/wallpaper-cycler --interval ${cfg.interval} --num_images ${toString cfg.numImages}";
-        Restart = "on-failure";
+        Restart = "always";
+        RestartSec = "10s";
       };
 
       Install.WantedBy = [ "graphical-session.target" ];
-    };
-
-    systemd.user.services.wallpaper-cycler-resume = {
-      Unit = {
-        Description = "Update wallpaper after resume";
-        After = [
-          "suspend.target"
-          "hibernate.target"
-          "hybrid-sleep.target"
-        ];
-      };
-
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.systemd}/bin/systemctl --user restart wallpaper-cycler.service";
-      };
-
-      Install.WantedBy = [
-        "suspend.target"
-        "hibernate.target"
-        "hybrid-sleep.target"
-      ];
     };
   };
 }

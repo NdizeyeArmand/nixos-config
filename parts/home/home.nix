@@ -49,11 +49,13 @@
     # qbittorrent # OpenSource Qt Bittorrent client
 
     # Coding
+    vscode
     zellij # Terminal workspace with batteries included
     curl
     # claude-code # Agentic coding tool
 
     # Misc
+    nil
     cmatrix
     htop
     # bitwarden-cli # Secure and free password manager for all of your devices

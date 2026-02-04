@@ -35,6 +35,7 @@
           name = "nix";
           auto-format = true;
           formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+          language-servers = [ "nil" ];
         }
         {
           name = "java";
@@ -78,6 +79,9 @@
       language-server.hls = {
         command = "haskell-language-server-wrapper";
         args = [ "--lsp" ];
+      };
+      language-server.nil = {
+        command = "${pkgs.nil}/bin/nil";
       };
     };
     # themes = {
