@@ -39,7 +39,18 @@
         }
         {
           name = "java";
-          language-servers = [ "java-language-server" ];
+          language-servers = [ "jdtls" ];
+          scope = "source.java";
+          injection-regex = "java";
+          file-types = [ "java" ];
+          roots = [
+            "pom.xml"
+            "build.gradle"
+          ];
+          indent = {
+            tab-width = 4;
+            unit = "    ";
+          };
         }
         {
           name = "elm";
@@ -82,6 +93,16 @@
       };
       language-server.nil = {
         command = "${pkgs.nil}/bin/nil";
+      };
+      language-server.jdtls = {
+        command = "jdt-language-server";
+        args = [
+          "-data"
+          "/home/<USER>/.cache/jdtls/workspace"
+        ];
+      };
+      language-server.jdtls.config.java.inlayHints = {
+        parameterNames.enabled = "all";
       };
     };
     # themes = {
