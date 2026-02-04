@@ -17,9 +17,12 @@
         restartUnits = [ "NetworkManager.service" ];
       };
       user_creds = {
-        sopsFile = ../../secrets/secrets.env;
         neededForUsers = true;
       };
+      speech_key = { };
+      speech_region = { };
+      azure_openai_key = { };
+      azure_openai_endpoint = { };
     };
   };
 }

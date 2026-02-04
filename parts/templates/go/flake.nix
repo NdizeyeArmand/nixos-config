@@ -48,6 +48,12 @@
               golangci-lint
             ];
           };
+
+          shellHook = ''
+            export GOPATH="''${XDG_DATA_HOME:-$HOME/.local/share}/go"
+            export GOBIN="''${XDG_DATA_HOME:-$HOME/.local/share}/go/bin"
+            export PATH=$GOBIN:$PATH
+          '';
         }
       );
     };

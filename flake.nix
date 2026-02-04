@@ -49,7 +49,11 @@
               ./parts/hosts/acer
               {
                 nixpkgs.config.allowUnfreePredicate =
-                  pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+                  pkg:
+                  builtins.elem (nixpkgs.lib.getName pkg) [
+                    "vscode"
+                    "claude-code"
+                  ];
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
@@ -67,7 +71,11 @@
               ./parts/hosts/desktop
               {
                 nixpkgs.config.allowUnfreePredicate =
-                  pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+                  pkg:
+                  builtins.elem (nixpkgs.lib.getName pkg) [
+                    "vscode"
+                    "claude-code"
+                  ];
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
@@ -86,7 +94,11 @@
               ./parts/hosts/server
               {
                 nixpkgs.config.allowUnfreePredicate =
-                  pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "claude-code" ];
+                  pkg:
+                  builtins.elem (nixpkgs.lib.getName pkg) [
+                    "vscode"
+                    "claude-code"
+                  ];
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
