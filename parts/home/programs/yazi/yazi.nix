@@ -40,6 +40,30 @@
       open = {
         rules = [
           {
+            name = "*.jsx";
+            use = "edit";
+          }
+          {
+            name = "*.json";
+            use = "edit";
+          }
+          {
+            name = "*.md";
+            use = "edit";
+          }
+          {
+            name = "*.js";
+            use = "edit";
+          }
+          {
+            name = "*.ts";
+            use = "edit";
+          }
+          {
+            name = "*.tsx";
+            use = "edit";
+          }
+          {
             mime = "text/*";
             use = "edit";
           }

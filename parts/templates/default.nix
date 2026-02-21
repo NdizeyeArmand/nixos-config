@@ -31,5 +31,9 @@
       path = ./typst;
       description = "Typst dev environment";
     };
+    javascript = {
+      path = ./javascript;
+      description = "Javascript dev environment";
+    };
   };
 }

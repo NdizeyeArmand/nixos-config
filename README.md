@@ -1,4 +1,4 @@
-<h1 align="center">DarkLoon/dotfiles</h1>
+<h1 align="center">Dark_Loon/dotfiles</h1>
 
 # About
 
@@ -7,7 +7,7 @@ top. Using [flakes](https://nixos.wiki/wiki/Flakes) and
 [flake-parts](https://github.com/hercules-ci/flake-parts).
 
 See an overview of the flake outputs by running
-`nix flake show git+https://gitlab.com/DarkLoon/dotfiles`.
+`nix flake show git+https://gitlab.com/Dark_Loon/dotfiles`.
 
 
 # Structure
@@ -25,7 +25,7 @@ See an overview of the flake outputs by running
 
 To install NixOS use the nix installer ISO.
 Then run the following:
-```bash
+```nu
 git clone gitlab.com/DarkLoon/dotfiles ~/
 cd ~/dotfiles
 
@@ -36,8 +36,8 @@ cd ~/dotfiles
 
 
 Use a template:
-```bash
-# Provide a development shell (alternatively nix flake init -t gitlab:Darkloon/dotfiles#java)
+```nu
+# Provide a development shell (alternatively nix flake init -t gitlab:Dark_loon/dotfiles#java)
 dvt java
 dvt java newProject
 dvt typst my-project

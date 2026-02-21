@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     (writeScriptBin "zathura-opener" ''
@@ -38,19 +38,12 @@
           language-servers = [ "nil" ];
         }
         {
+          name = "css";
+          language-servers = [ "vscode-css-language-server" ];
+        }
+        {
           name = "java";
           language-servers = [ "jdtls" ];
-          scope = "source.java";
-          injection-regex = "java";
-          file-types = [ "java" ];
-          roots = [
-            "pom.xml"
-            "build.gradle"
-          ];
-          indent = {
-            tab-width = 4;
-            unit = "    ";
-          };
         }
         {
           name = "elm";
@@ -80,6 +73,16 @@
           name = "typescript";
           language-servers = [ "typescript-language-server" ];
         }
+        {
+          name = "javascript";
+          language-servers = [ "typescript-language-server" ];
+          file-types = [
+            "js"
+            "jsx"
+            "mjs"
+            "cjs"
+          ];
+        }
       ];
       language-server.tinymist = {
         command = "tinymist";
@@ -95,14 +98,25 @@
         command = "${pkgs.nil}/bin/nil";
       };
       language-server.jdtls = {
-        command = "jdt-language-server";
+        command = "jdtls";
         args = [
           "-data"
-          "/home/<USER>/.cache/jdtls/workspace"
+          "${config.home.homeDirectory}/.jdtls-workspace"
         ];
       };
-      language-server.jdtls.config.java.inlayHints = {
-        parameterNames.enabled = "all";
+      language-server.jdtls.config.java = {
+        inlayHints = {
+          parameterNames.enabled = "all";
+        };
+        errors.incompleteClasspath.severity = "ignore";
+        autobuild.enabled = false;
+        import.maven.enabled = true;
+        maven.downloadSources = true;
+        configuration.updateBuildConfiguration = "automatic";
+        completion.enabled = true;
+        signatureHelp.enabled = true;
+        contentProvider.preferred = "fernflower";
+        eclipse.downloadSources = true;
       };
     };
     # themes = {
