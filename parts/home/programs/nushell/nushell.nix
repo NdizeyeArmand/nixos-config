@@ -88,11 +88,12 @@
           "haskell" | "h" => "git+file:///home/armand/dotfiles#haskell",
           "java" | "j" => "git+file:///home/armand/dotfiles#java",
           "rust" | "r" => "git+file:///home/armand/dotfiles#rust",
-          "typescript" | "ts" => "git+file:///home/armand/dotfiles#typescript",
-          "typst" | "t" => "git+file:///home/armand/dotfiles#typst",          
+          "typst" | "t" => "git+file:///home/armand/dotfiles#typst",
+          "typescript" | "ts" => "git+file:///home/armand/dotfiles#typescript",          
+          "javascript" | "js" => "git+file:///home/armand/dotfiles#javascript",          
           _ => {
             print $"Unknown template: ($template_lower)"
-            print "Available: elm, go, haskell, java, rust, typescript, typst"
+            print "Available: elm, go, haskell, java,, javascript, rust, typescript, typst"
             return
           }
         }
