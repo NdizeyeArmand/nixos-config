@@ -64,6 +64,10 @@
             use = "edit";
           }
           {
+            name = "*.php";
+            use = "edit";
+          }
+          {
             mime = "text/*";
             use = "edit";
           }

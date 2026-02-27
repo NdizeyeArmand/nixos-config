@@ -2,11 +2,17 @@
 {
   programs.vscode = {
     enable = true;
-    enableUpdateCheck = false;
-    extensions = with pkgs.vscode-extensions; [
-      anthropic.claude-code
-      usernamehw.errorlens
-      esbenp.prettier-vscode
-    ];
+    profiles.default = {
+      enableUpdateCheck = false;
+      extensions = with pkgs.vscode-extensions; [
+        usernamehw.errorlens
+        esbenp.prettier-vscode
+      ];
+    };
+  };
+
+  home.file.".vscode/argv.json".text = builtins.toJSON {
+    enable-crash-reporter = false;
+    password-store = "gnome-libsecret";
   };
 }

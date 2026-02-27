@@ -52,7 +52,6 @@
                   pkg:
                   builtins.elem (nixpkgs.lib.getName pkg) [
                     "vscode"
-                    "vscode-extension-anthropic-claude-code"
                   ];
               }
               niri.nixosModules.niri
