@@ -94,7 +94,26 @@
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
       "text/plain" = "helix.desktop";
+      "application/x-nuscript" = "helix.desktop";
       "application/octet-stream" = "helix.desktop";
     };
+  };
+
+  xdg.desktopEntries.helix = {
+    name = "Helix";
+    genericName = "Text Editor";
+    comment = "Fast modal text editor";
+    exec = "foot hx %F";
+    terminal = false;
+    icon = "helix";
+    categories = [
+      "Utility"
+      "TextEditor"
+    ];
+    mimeType = [
+      "text/plain"
+      "application/x-nuscript"
+      "application/octet-stream"
+    ];
   };
 }
