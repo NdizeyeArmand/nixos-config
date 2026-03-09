@@ -162,6 +162,7 @@
       "wheel"
       "inp.t"
       "docker"
+      "video"
     ];
     hashedPasswordFile = config.sops.secrets.user_creds.path;
   };

@@ -9,11 +9,13 @@
           layout = "be_custom";
         };
         numlock = true;
+        repeat-delay = 200;
+        repeat-rate = 35;
       };
     };
     layout = {
       # Set gaps around windows in logical pixels.
-      gaps = 16;
+      gaps = 5;
 
       # When to center a column when changing focus, options are:
       # - "never", default behavior, focusing an off-screen column will keep at the left
@@ -63,7 +65,7 @@
         # off = true;
 
         # How many logical pixels the ring extends out from the windows.
-        width = 4;
+        width = 1.5;
 
         # Colors can be set in a variety of ways:
         # - CSS named colors: "red"
@@ -189,6 +191,13 @@
     window-rules = [
       {
         opacity = 0.95;
+        geometry-corner-radius = {
+          top-left = 4.0;
+          top-right = 4.0;
+          bottom-left = 4.0;
+          bottom-right = 4.0;
+        };
+        clip-to-geometry = true;
       }
 
       # Terminals slightly more transparent
@@ -245,10 +254,81 @@
       # For example, this is a standard bind to toggle the screen reader (orca).
       "Super+Alt+S" = {
         action.spawn-sh = "pkill orca || exec orca";
+        # action.spawn = ["nu" "/path/to/toggle-orca.nu"];
         allow-when-locked = true;
         hotkey-overlay = {
           hidden = true;
         };
+      };
+
+      "XF86MonBrightnessUp" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "-e"
+          "s"
+          "5%+"
+        ];
+      };
+
+      "XF86MonBrightnessDown" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "-e"
+          "s"
+          "5%-"
+        ];
+      };
+      
+      "Shift+XF86MonBrightnessUp" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "-e"
+          "s"
+          "1%+"
+        ];
+      };
+      
+      "Shift+XF86MonBrightnessDown" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "brightnessctl"
+          "-e"
+          "s"
+          "1%-"
+        ];
+      };
+
+      "XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "wpctl"
+          "set-volume"
+          "@DEFAULT_AUDIO_SINK@"
+          "5%+"
+        ];
+      };
+
+      "XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "wpctl"
+          "set-volume"
+          "@DEFAULT_AUDIO_SINK@"
+          "5%-"
+        ];
+      };
+
+      "XF86AudioMute" = {
+        allow-when-locked = true;
+        action.spawn = [
+          "wpctl"
+          "set-mute"
+          "@DEFAULT_AUDIO_SINK@"
+          "toggle"
+        ];
       };
 
       # Open/close the Overview: a zoomed-out view of workspaces and windows.

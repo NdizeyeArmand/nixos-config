@@ -6,6 +6,7 @@
     ./carapace
     ./helix
     ./kanshi
+    ./mako
     ./niri
     ./nushell
     ./starship

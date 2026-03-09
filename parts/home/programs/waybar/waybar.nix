@@ -101,7 +101,7 @@
         "temperature" = {
           #"thermal-zone" = 1;
           "interval" = "4";
-          "hwmon-path" = "/sys/class/hwmon/hwmon3/temp1_input";
+          "hwmon-path" = "/sys/class/hwmon/hwmon3/temp2_input";
           "critical-threshold" = 74;
           "format-critical" = "  {temperatureC}°C";
           "format" = "{icon}  {temperatureC}°C";
@@ -117,6 +117,8 @@
           "format-bluetooth" = "{volume}% {icon}";
           "format-bluetooth-muted" = "󰝟 {icon}";
           "format-muted" = "󰝟";
+          "max-length" = 5;
+          "min-length" = 3;
           "format-icons" = {
             "headphone" = "";
             "headset" = "";
@@ -128,8 +130,6 @@
               ""
               ""
             ];
-            "max-length" = 5;
-            "min-length" = 3;
           };
           "on-click" = "pavucontrol";
           "on-click-right" = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
@@ -137,13 +137,13 @@
         "bluetooth" = {
           "interval" = 30;
           "format" = "{icon}";
-          # "format-alt" = "{status}";
           "format-icons" = {
-            "default" = [
-              ""
-            ];
+            "enabled" = "";
+            "connected" = "󰂱";
+            "disabled" = "󰂲";
           };
           "on-click" = "blueberry";
+          "tooltip-format" = "{status}";
         };
         battery = {
           format = "{icon}";
