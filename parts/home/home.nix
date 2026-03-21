@@ -83,6 +83,21 @@
     };
   };
 
+  systemd.user.services.set-default-volume = {
+    Unit = {
+      Description = "Set default sink volume on login";
+      After = [ "pipewire-pulse.service" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ 50%";
+      RemainAfterExit = true;
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

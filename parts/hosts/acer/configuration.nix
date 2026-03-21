@@ -19,6 +19,8 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
+  boot.loader.grub.configurationLimit = 5;
+  boot.loader.timeout = 2;
   boot.plymouth.enable = true;
   boot.kernelParams = [
     "quiet"
@@ -170,7 +172,8 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 7d";
+    options = "--delete-older-than 14d";
+    persistent = false;
   };
 
   nix.settings.extra-experimental-features = [
@@ -179,7 +182,6 @@
   ];
 
   nix.optimise.automatic = true;
-  nix.settings.auto-optimise-store = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
