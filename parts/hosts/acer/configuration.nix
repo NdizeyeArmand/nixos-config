@@ -155,6 +155,12 @@
   environment.variables.EDITOR = "hx";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
+
   users.users.armand = {
     isNormalUser = true;
     description = "Armand";
