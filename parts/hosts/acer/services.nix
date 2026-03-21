@@ -27,4 +27,6 @@
     HandleLidSwitch = "ignore";
     HandleLidSwitchDocked = "ignore";
   };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
