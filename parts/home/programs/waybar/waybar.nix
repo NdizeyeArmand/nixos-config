@@ -1,4 +1,34 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  weatherScript = pkgs.writeScriptBin "waybar-weather" ''
+    #!${pkgs.nushell}/bin/nu
+
+    let res = (http get "https://api.open-meteo.com/v1/forecast?latitude=50.85&longitude=4.35&current_weather=true")
+    let temp = $res.current_weather.temperature
+    let code = $res.current_weather.weathercode
+    let is_day = $res.current_weather.is_day
+    let icon = match [$is_day $code] {
+        [1, 0] => "☀️",
+        [0, 0] => "🌙",
+        [1, 1] => "🌤️",
+        [0, 1] => "🌙",
+        [_, 2] => "⛅",
+        [_, 3] => "☁️",
+        [_, 45] | [_, 48] => "🌫️",
+        [_, 51] | [_, 53] => "🌦️",
+        [_, 55] | [_, 61] | [_, 63] | [_, 65] => "🌧️",
+        [_, 71] | [_, 73] => "🌨️",
+        [_, 75] => "❄️",
+        [_, 77] => "🌨️",
+        [_, 80] | [_, 81] => "🌦️",
+        [_, 82] => "⛈️",
+        [_, 85] | [_, 86] => "🌨️",
+        [_, 95] | [_, 96] | [_, 99] => "⛈️",
+        _ => "🌡️"
+    }
+    print $"($icon) ($temp)°C"
+  '';
+in
 {
   programs.waybar = {
     enable = true;
@@ -87,8 +117,9 @@
           };
         };
         "custom/weather" = {
-          "exec" = "curl -s 'https://wttr.in/50.8504,4.34878?format=1' 2>/dev/null || echo ''";
+          "exec" = "nu ${weatherScript}/bin/waybar-weather";
           "interval" = 3600;
+          "tooltip" = false;
         };
         "cpu" = {
           "interval" = "1";
