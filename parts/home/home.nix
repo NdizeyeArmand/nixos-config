@@ -98,6 +98,13 @@
     };
   };
 
+  systemd.user.services.waybar = {
+    Service = {
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

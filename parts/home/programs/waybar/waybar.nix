@@ -32,6 +32,7 @@ in
 {
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     settings = [
       {
         "layer" = "top"; # Waybar at top layer
@@ -117,7 +118,7 @@ in
           };
         };
         "custom/weather" = {
-          "exec" = "nu ${weatherScript}/bin/waybar-weather";
+          "exec" = "timeout 10 nu ${weatherScript}/bin/waybar-weather || echo '🌡️ --'";
           "interval" = 3600;
           "tooltip" = false;
         };
