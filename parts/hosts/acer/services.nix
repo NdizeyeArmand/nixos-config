@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # services.nextcloud = {
@@ -26,6 +26,18 @@
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
     HandleLidSwitchDocked = "ignore";
+  };
+
+  services.blueman.enable = true;
+
+  systemd.services.bluetooth-off-on-resume = {
+    description = "Turn Bluetooth off after resume";
+    after = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth";
+    };
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;

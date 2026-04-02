@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -89,14 +90,10 @@
     };
   };
 
-  hardware.graphics.enable = true;
-
   programs.niri = {
     enable = true;
     package = pkgs.niri;
   };
-
-  programs.firefox.enable = true;
 
   services.tlp.enable = true;
 
@@ -143,6 +140,11 @@
 
   services.printing.enable = true;
 
+  hardware.graphics.enable = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -178,9 +180,66 @@
 
   nix.gc = {
     automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 3d";
+    persistent = true;
+  };
+
+  nix.extraOptions = ''
+    min-free = ${toString (100 * 1024 * 1024)}
+    max-free = ${toString (1024 * 1024 * 1024)}
+  '';
+
+  nixpkgs.config.allowBroken = false; # not needed, just context
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      upower = prev.upower.overrideAttrs (old: {
+        doCheck = false;
+      });
+
+    rucola = final.callPackage ({ rustPlatform, fetchFromGitHub, pkg-config, oniguruma, openssl, lib }:
+      rustPlatform.buildRustPackage {
+        pname = "rucola";
+        version = "0.8.2";
+
+        src = fetchFromGitHub {
+          owner = "Linus-Mussmaecher";
+          repo = "rucola";
+          rev = "bb9ea817720e0106f3f58cda34b23a781fce51f6";
+          hash = "sha256-Lg/JzB+FFPaIfue4Vwn1X4WNHaK3FSZYHsxy+ZQpbPs=";
+        };
+
+        cargoHash = "sha256-4hdG8jBD7zSG0g4H1qfNVNq4ngwRstYeum+eix41W3E=";
+
+        nativeBuildInputs = [ pkg-config ];
+        buildInputs = [ oniguruma openssl ];
+
+        env.RUSTONIG_SYSTEM_LIBONIG = true;
+
+        # Fails on Darwin
+        checkFlags = [
+          "--skip=io::file_tracker::tests::test_watcher_rename"
+        ];
+
+        meta = {
+          description = "Terminal-based markdown note manager";
+          homepage = "https://github.com/Linus-Mussmaecher/rucola";
+          license = lib.licenses.gpl3Plus;
+          mainProgram = "rucola";
+          platforms = lib.platforms.linux ++ lib.platforms.darwin;
+        };
+      }) {};
+    })
+  ];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--commit-lock-file"
+    ];
     dates = "weekly";
-    options = "--delete-older-than 14d";
-    persistent = false;
   };
 
   nix.settings.extra-experimental-features = [

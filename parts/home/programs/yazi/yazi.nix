@@ -68,6 +68,23 @@
             use = "edit";
           }
           {
+            mime = "application/json";
+            use = "edit";
+          }
+          {
+            mime = "application/javascript";
+            use = "edit";
+          }
+          {
+            mime = "application/typescript";
+            use = "edit";
+          }
+          {
+            mime = "application/xml";
+            use = "edit";
+          }
+          
+          {
             mime = "text/*";
             use = "edit";
           }
@@ -83,6 +100,8 @@
             mime = "application/pdf";
             use = "pdf";
           }
+
+          { mime = "*"; use = "edit"; }
         ];
       };
 
