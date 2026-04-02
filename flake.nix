@@ -3,12 +3,16 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
     niri.url = "github:sodiboo/niri-flake";
-
+    
+    firefox-css = {
+      url = "github:MrOtherGuy/firefox-csshacks";
+      flake = false;
+    };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
@@ -45,6 +49,7 @@
       flake = {
         nixosConfigurations = {
           nixos = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
             modules = [
               ./parts/hosts/acer
               {
@@ -62,10 +67,12 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.armand = ./parts/home;
                 home-manager.backupFileExtension = "backup";
+                home-manager.extraSpecialArgs = { inherit inputs; };
               }
             ];
           };
           desktop = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
             modules = [
               ./parts/hosts/desktop
               {
@@ -73,7 +80,6 @@
                   pkg:
                   builtins.elem (nixpkgs.lib.getName pkg) [
                     "vscode"
-                    "claude-code"
                   ];
               }
               niri.nixosModules.niri
@@ -84,11 +90,12 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.armand = ./parts/home;
                 home-manager.backupFileExtension = "backup";
-
+                home-manager.extraSpecialArgs = { inherit inputs; };
               }
             ];
           };
           server = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
             modules = [
               ./parts/hosts/server
               {
@@ -96,7 +103,6 @@
                   pkg:
                   builtins.elem (nixpkgs.lib.getName pkg) [
                     "vscode"
-                    "claude-code"
                   ];
               }
               niri.nixosModules.niri
@@ -107,7 +113,7 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.armand = ./parts/home;
                 home-manager.backupFileExtension = "backup";
-
+                home-manager.extraSpecialArgs = { inherit inputs; };
               }
             ];
           };

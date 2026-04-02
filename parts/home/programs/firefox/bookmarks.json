@@ -1,0 +1,19 @@
+{
+  "force": true,
+  "settings": [
+    {
+      "toolbar": true,
+      "bookmarks": [
+        {
+          "name": "Tree Proof Generator",
+          "url": "https://www.umsu.de/trees/"
+        }
+      ]
+    },
+    {
+      "name": "Other Bookmarks",
+      "toolbar": false,
+      "bookmarks": []
+    }
+  ]
+}

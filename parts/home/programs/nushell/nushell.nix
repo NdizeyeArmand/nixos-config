@@ -64,17 +64,6 @@
       # NOW set the completer to use the variable
       $env.config.completions.external.completer = $multiple_completers
 
-      # yazi integration
-      def --env y [...args] {
-        let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-        yazi ...$args --cwd-file $tmp
-        let cwd = (open $tmp)
-        if $cwd != "" and $cwd != $env.PWD {
-          cd $cwd
-        }
-        rm -fp $tmp
-      }
-
       def dvt [
         template: string  # Template name (python, rust, etc.)
         name?: string     # Optional project name

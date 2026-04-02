@@ -32,7 +32,10 @@ in
 {
   programs.waybar = {
     enable = true;
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      target = "graphical-session.target";
+    };
     settings = [
       {
         "layer" = "top"; # Waybar at top layer
@@ -51,7 +54,6 @@ in
           "cpu"
           "temperature"
           "pulseaudio"
-          "bluetooth"
           "network"
           "battery"
           "tray"
@@ -165,17 +167,6 @@ in
           };
           "on-click" = "pavucontrol";
           "on-click-right" = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        };
-        "bluetooth" = {
-          "interval" = 30;
-          "format" = "{icon}";
-          "format-icons" = {
-            "enabled" = "";
-            "connected" = "󰂱";
-            "disabled" = "󰂲";
-          };
-          "on-click" = "blueberry";
-          "tooltip-format" = "{status}";
         };
         battery = {
           format = "{icon}";
