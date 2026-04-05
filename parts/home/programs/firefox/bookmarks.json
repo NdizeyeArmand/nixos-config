@@ -3,12 +3,7 @@
   "settings": [
     {
       "toolbar": true,
-      "bookmarks": [
-        {
-          "name": "Tree Proof Generator",
-          "url": "https://www.umsu.de/trees/"
-        }
-      ]
+      "bookmarks": []
     },
     {
       "name": "Other Bookmarks",

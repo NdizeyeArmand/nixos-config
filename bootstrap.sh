@@ -5,7 +5,7 @@ set -e
 TARGET_HOST="${1:-$HOSTNAME}"
 
 DOTFILES="$HOME/dotfiles"
-HOST_DIR="$DOTFILES/hosts/$TARGET_HOST"
+HOST_DIR="$DOTFILES/parts/hosts/$TARGET_HOST"
 
 # Check if this is a valid/explicit host selection
 if [[ "$TARGET_HOST" == "desktop" ]] || [[ "$TARGET_HOST" == "server" ]]; then
@@ -18,7 +18,7 @@ if [[ "$TARGET_HOST" == "desktop" ]] || [[ "$TARGET_HOST" == "server" ]]; then
 else
     # Fallback to acer directory
     echo "Updating hardware-configuration.nix for default host (acer)..."
-    ACER_DIR="$DOTFILES/hosts/acer"
+    ACER_DIR="$DOTFILES/parts/hosts/acer"
     sudo cp /etc/nixos/hardware-configuration.nix "$ACER_DIR/"
     HOST_DIR="$ACER_DIR"
     TARGET_HOST="acer"

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   # Configure sops
@@ -17,9 +17,17 @@
         restartUnits = [ "NetworkManager.service" ];
       };
       user_creds = {
-        sopsFile = ../../secrets/secrets.env;
         neededForUsers = true;
       };
+      ssh_private_key = {
+        owner = "armand";
+        path = "/home/myUser/.ssh/id_ed25519";
+        mode = "0600";
+      };
+      speech_key = { };
+      speech_region = { };
+      azure_openai_key = { };
+      azure_openai_endpoint = { };
     };
   };
 }
