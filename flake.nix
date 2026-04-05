@@ -71,10 +71,10 @@
               }
             ];
           };
-          desktop = nixpkgs.lib.nixosSystem {
+          omen = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
-              ./parts/hosts/desktop
+              ./parts/hosts/omen
               {
                 nixpkgs.config.allowUnfreePredicate =
                   pkg:

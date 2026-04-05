@@ -85,6 +85,20 @@
       st = "status";
     };
   };
+
+  programs.ssh = {
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+      };
+      "gitlab.com" = {
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+        identitiesOnly = true;
+      };            
+    };
+  };
   
   systemd.user.services.set-default-volume = {
     Unit = {
@@ -128,31 +142,23 @@
     };
   };
 
-  systemd.user.services.firefox-bookmark-sync = {
-    description = "Sync Firefox bookmarks";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "%h/dotfiles/parts/home/programs/firefox/bookmark-sync.nu";
-    };
-  };
-
   systemd.user.paths.firefox-bookmark-sync = {
     Unit.Description = "Watch Firefox places.sqlite for changes";
-    pathConfig = {
+    Path = {
       PathChanged = "%h/.mozilla/firefox/profile_0/places.sqlite";
       Unit = "firefox-bookmark-sync.service";
     };
-    wantedBy = [ "default.target" ];
+    Install.WantedBy = [ "default.target" ];
   };
 
   systemd.user.timers.firefox-bookmark-sync = {
     Unit.Description = "Periodically sync Firefox bookmarks";
-    timerConfig = {
+    Timer = {
       OnCalendar = "*:0/15";   # every 15 minutes
       Persistent = true;
       Unit = "firefox-bookmark-sync.service";
     };
-    wantedBy = [ "timers.target" ];
+    Install.WantedBy = [ "timers.target" ];
   };
   
   xdg.configFile."yazi/plugins/glow.yazi/main.lua".source = ./programs/yazi/glow.lua;

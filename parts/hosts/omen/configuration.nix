@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -15,15 +14,21 @@
     ./sops.nix
   ];
 
-  # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
+  boot.loader.grub.configurationLimit = 5;
+  boot.loader.timeout = 2;
+  boot.plymouth.enable = true;
+  boot.kernelParams = [
+    "quiet"
+  ];
+  #boot.consoleLogLevel = 1;
 
-  networking.hostName = "desktop"; # Define your hostname.
+  networking.hostName = "omen"; # Define your hostname.
   networking.networkmanager.enable = true;
   networking.networkmanager.ensureProfiles.environmentFiles = [
     config.sops.secrets.home_wifi_1.path
@@ -85,16 +90,13 @@
     };
   };
 
-  hardware.graphics.enable = true;
-
   programs.niri = {
     enable = true;
     package = pkgs.niri;
   };
 
-  programs.firefox.enable = true;
+  services.tlp.enable = true;
 
-  # Display manager (login screen)
   services.greetd = {
     enable = true;
     settings = {
@@ -105,10 +107,19 @@
     };
   };
 
-  # Set your time zone.
+  virtualisation.docker = {
+    enable = true;
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
+  services.udisks2.enable = true;
+
   time.timeZone = "Europe/Brussels";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -123,17 +134,17 @@
     LC_TIME = "nl_BE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Configure console keymap
   console.keyMap = "be-latin1";
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
+  hardware.graphics.enable = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -143,10 +154,15 @@
     pulse.enable = true;
   };
 
-  # Set default editor
   environment.variables.EDITOR = "hx";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
+
   users.users.armand = {
     isNormalUser = true;
     description = "Armand";
@@ -155,22 +171,83 @@
       "input"
       "wheel"
       "inp.t"
+      "docker"
+      "video"
     ];
     hashedPasswordFile = config.sops.secrets.user_creds.path;
+    shell = pkgs.nushell;
   };
 
-  # Automatic garbage collection
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+    dates = "daily";
+    options = "--delete-older-than 3d";
+    persistent = true;
   };
 
-  # Enable experimental features
+  nix.extraOptions = ''
+    min-free = ${toString (100 * 1024 * 1024)}
+    max-free = ${toString (1024 * 1024 * 1024)}
+  '';
+
+  nixpkgs.config.allowBroken = false; # not needed, just context
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      upower = prev.upower.overrideAttrs (old: {
+        doCheck = false;
+      });
+
+    rucola = final.callPackage ({ rustPlatform, fetchFromGitHub, pkg-config, oniguruma, openssl, lib }:
+      rustPlatform.buildRustPackage {
+        pname = "rucola";
+        version = "0.8.2";
+
+        src = fetchFromGitHub {
+          owner = "Linus-Mussmaecher";
+          repo = "rucola";
+          rev = "bb9ea817720e0106f3f58cda34b23a781fce51f6";
+          hash = "sha256-Lg/JzB+FFPaIfue4Vwn1X4WNHaK3FSZYHsxy+ZQpbPs=";
+        };
+
+        cargoHash = "sha256-4hdG8jBD7zSG0g4H1qfNVNq4ngwRstYeum+eix41W3E=";
+
+        nativeBuildInputs = [ pkg-config ];
+        buildInputs = [ oniguruma openssl ];
+
+        env.RUSTONIG_SYSTEM_LIBONIG = true;
+
+        # Fails on Darwin
+        checkFlags = [
+          "--skip=io::file_tracker::tests::test_watcher_rename"
+        ];
+
+        meta = {
+          description = "Terminal-based markdown note manager";
+          homepage = "https://github.com/Linus-Mussmaecher/rucola";
+          license = lib.licenses.gpl3Plus;
+          mainProgram = "rucola";
+          platforms = lib.platforms.linux ++ lib.platforms.darwin;
+        };
+      }) {};
+    })
+  ];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--commit-lock-file"
+    ];
+    dates = "weekly";
+  };
+
   nix.settings.extra-experimental-features = [
     "nix-command"
     "flakes"
   ];
+
+  nix.optimise.automatic = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
