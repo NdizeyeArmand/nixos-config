@@ -152,16 +152,32 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;    
   };
 
   environment.variables.EDITOR = "hx";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+    ];
+    configPackages = [ pkgs.niri ];
+    config = {
+      common.default = [ "gtk" ];
+      niri = {
+      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
+    };
   };
+
+  # Helps portals 'find' each other and the compositor
+  # services.dbus.enable = true;
 
   users.users.armand = {
     isNormalUser = true;

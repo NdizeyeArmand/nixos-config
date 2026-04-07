@@ -10,4 +10,4 @@ result-*
 .vscode/
 .idea/
 
-# hardware-configuration.nix
+.html/

@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true;
     profiles.default = {
-      enableUpdateCheck = false;
+      enableUpdateCheck = true;
       userSettings = {
         "terminal.integrated.shellIntegration.enabled" = false;
         "terminal.integrated.defaultProfile.linux" = "nushell";
