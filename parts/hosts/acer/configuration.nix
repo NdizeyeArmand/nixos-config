@@ -152,10 +152,12 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
 
   environment.variables.EDITOR = "hx";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 
   xdg.portal = {
     enable = true;

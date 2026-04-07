@@ -9,7 +9,7 @@
     git
     git-lfs
     helix # Modal CLI text editor
-    nushell
+    xwayland-satellite
     foot
     wget # Tool for retrieving files using HTTP, HTTPS, and FTP
     ripgrep

@@ -4,6 +4,7 @@
 {
   imports = [
     ./carapace
+    ./discord
     ./firefox
     ./helix
     ./kanshi

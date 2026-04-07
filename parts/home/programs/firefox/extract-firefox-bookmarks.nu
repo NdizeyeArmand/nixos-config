@@ -4,25 +4,22 @@ def main [jsonlz4_file: path, --out: path = "bookmarks.json"] {
   # Decompress the jsonlz4 backup
   let raw = (dejsonlz4 $jsonlz4_file | from json)
 
-  # Flatten all bookmark nodes into a table
-  let rows = ($raw.children | flatten_tree)
-
   # Find the three root folder GUIDs
-  let toolbar_id  = ($rows | where guid == "toolbar_____" | get id | first)
-  let menu_id     = ($rows | where guid == "menu________" | get id | first)
-  let unfiled_id  = ($rows | where guid == "unfiled_____" | get id | first)
+  let toolbar_node  = (find_by_guid "toolbar_____" $raw)
+  let menu_node     = (find_by_guid "menu________"  $raw)
+  let unfiled_node  = (find_by_guid "unfiled_____"  $raw)
 
   let result = {
     force: true,
     settings: [
       {
         toolbar: true,
-        bookmarks: (get_folder_bookmarks $toolbar_id $rows)
+        bookmarks: (collect_children $toolbar_node)
       },
       {
         name: "Other Bookmarks",
         toolbar: false,
-        bookmarks: ((get_folder_bookmarks $menu_id $rows) ++ (get_folder_bookmarks $unfiled_id $rows))
+        bookmarks: ((collect_children $menu_node) ++ (collect_children $unfiled_node))
       }
     ]
   }
@@ -31,19 +28,40 @@ def main [jsonlz4_file: path, --out: path = "bookmarks.json"] {
   print $"Bookmarks written to ($out)"
 }
 
-def flatten_tree [] {
-  each { |node|
-    let children = if ("children" in $node) {
-      $node.children | flatten_tree
-    } else {
-      []
-    }
-    [$node] ++ $children
-  } | flatten
+def find_by_guid [target_guid: string, node: record] {
+  if ($node.guid? == $target_guid) {
+    $node
+  } else if ("children" in $node) {
+      let found = ($node.children
+        | each { |child| find_by_guid $target_guid $child }
+        | where { |r| $r != null }
+        | get 0?)
+      $found
+  } else {
+    null
+  }
 }
 
-def get_folder_bookmarks [folder_id: int, rows: table] {
-  $rows
-  | where { |r| ($r.parent? == $folder_id) and ($r.type? == "text/x-moz-place") }
-  | each { |b| { title: ($b.title? | default ""), url: ($b.uri? | default "") } }
+def collect_children [node] {
+  if ($node == null) {
+    return []
+  }
+  if not ("children" in $node) {
+    return []
+  }
+  $node.children
+    | each { |child| collect_item $child }
+    | flatten
+}
+
+def collect_item [node] {
+  match ($node.type?) {
+    "text/x-moz-place" => {
+      [{ name: ($node.title? | default ""), url: ($node.uri? | default "") }]
+    }
+    "text/x-moz-place-container" => {
+      [{ name: ($node.title? | default ""), bookmarks: (collect_children $node) }]
+    }
+    _ => { [] }
+  }
 }

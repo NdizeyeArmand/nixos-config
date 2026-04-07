@@ -66,8 +66,8 @@ in
     policies = {
 				BlockAboutConfig = true;
 			  DefaultDownloadDirectory = "\${home}/Downloads";    	
-				DisableTelemetry = true;
 				DisableFirefoxAccounts = true;
+				DisableTelemetry = true;
         DisableAccounts = true;
         DisableFirefoxScreenshots = true;
 				DontCheckDefaultBrowser = true;
