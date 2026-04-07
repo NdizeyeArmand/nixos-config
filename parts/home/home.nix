@@ -137,7 +137,7 @@
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.nushell}/bin/nu %h/dotfiles/parts/home/programs/firefox/bookmark-sync.nu";
+      ExecStart = "${pkgs.nushell}/bin/nu %h/dotfiles/parts/home/programs/firefox/scripts/ff-bookmarks-live.nu --out %h/dotfiles/parts/home/programs/firefox/bookmarks.json";
       Environment = "HOME=%h";
     };
   };

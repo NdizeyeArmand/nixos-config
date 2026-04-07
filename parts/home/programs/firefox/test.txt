@@ -1,0 +1,23 @@
+# 1. After writing the script, activate the systemd units once
+home-manager switch
+
+# 2. Verify the units loaded correctly
+systemctl --user status firefox-bookmark-sync.service
+systemctl --user status firefox-bookmark-sync.path
+systemctl --user status firefox-bookmark-sync.timer
+
+# 3. Run the script manually first to catch any errors
+nu ~/dotfiles/parts/home/programs/firefox/bookmark-sync.nu
+
+# 4. Check the output
+ls ~/dotfiles/parts/home/   # or wherever --out points
+cat ~/dotfiles/parts/home/bookmarks.json | from json  # sanity check in nu
+
+# 5. Now make a bookmark change in Firefox, wait a few seconds, then check
+# The path watcher should fire almost immediately on places.sqlite write
+journalctl --user -u firefox-bookmark-sync.service -f  # watch live logs
+
+
+
+
+´´
