@@ -3,7 +3,13 @@ keys:
   - &host_omen age1860wzxx9w4ld9jx9d6khvef7malq888qmge2gc4p2y949vlppvjqvxypaq
 
 creation_rules:
-  - path_regex: \.env$
+  - path_regex: parts/secrets/[^/]+\.enc$
+    key_groups:
+      - age:
+          - *host_nixos
+          - *host_omen
+  
+  - path_regex: parts/secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *host_nixos
