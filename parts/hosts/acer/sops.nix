@@ -1,7 +1,6 @@
 { ... }:
 
 {
-  # Configure sops
   sops = {
     defaultSopsFile = ../../secrets/secrets.env;
     defaultSopsFormat = "dotenv";
@@ -20,8 +19,10 @@
         neededForUsers = true;
       };
       ssh_private_key = {
+        sopsFile = ../../secrets/ssh_private_key.enc;
+        format = "binary";
         owner = "armand";
-        path = "/home/myUser/.ssh/id_ed25519";
+        path = "/home/armand/.ssh/id_ed25519";
         mode = "0600";
       };
       speech_key = { };

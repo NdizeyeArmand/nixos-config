@@ -5,7 +5,7 @@
 # Usage:
 # nu ff-bookmarks-live.nu
 # nu ff-bookmarks-live.nu --profile /home/armand/.mozilla/firefox/profile_0
-# nu ff-bookmarks-live.nu --out ../bookmarks.json
+# nu ff-bookmarks-live.nu --out ($env.FILE_PWD | path join ".." "bookmarks.json")
 
 def detect_profile [] {
   let base = ($env.HOME | path join ".mozilla" "firefox")
@@ -27,7 +27,7 @@ def detect_profile [] {
   if not ($release | is-empty) { $release | first } else { $candidates | first }
 }
 
-def folder_id [bookmarks:table, guid: string] {
+def folder_id [bookmarks: table, guid: string] {
   let row = ($bookmarks | where guid == $guid | get 0?)
   if $row == null {
     error make { msg: $"Bookmark root GUID not found: ($guid)" }
@@ -65,7 +65,11 @@ def collect_children [bookmarks: table, places: table, parent_id: int] {
 
 let default_out = ($env.FILE_PWD | path join ".." "bookmarks.json")
 def main [--profile: path = "", --out: path] {
-  let out = if ($out | is-empty) { $default_out } else { $out }
+  let out = if ($out | is-empty) {
+    $default_out
+  } else {
+    $out
+  }
   let profile_dir = if ($profile | is-empty) {
     detect_profile
   } else {
@@ -97,21 +101,30 @@ def main [--profile: path = "", --out: path] {
   let menu_id = (folder_id $bookmarks "menu________")
   let unfiled_id = (folder_id $bookmarks "unfiled_____")
 
+  let non_toolbar_items = (
+    (collect_children $bookmarks $places $menu_id) ++ (collect_children $bookmarks $places $unfiled_id)
+  )
+
+  let non_toolbar_settings = (
+    $non_toolbar_items | each { |item|
+      if ($item | get bookmarks?) != null {
+        { toolbar: false, name: $item.name, bookmarks: $item.bookmarks }
+      } else {
+        { toolbar: false, name: $item.name, bookmarks: [{ name: $item.name, url: $item.url }] }
+      }
+    }
+  )
+
   let result = {
     force: true,
-    settings: [
-      {
+    settings: (
+      [{
         toolbar: true,
         bookmarks: (collect_children $bookmarks $places $toolbar_id)
-      },
-      {
-        name: "Other Bookmarks",
-        toolbar: false,
-        bookmarks: ((collect_children $bookmarks $places $menu_id) ++ (collect_children $bookmarks $places $unfiled_id))
-      }
-    ]
+      }]
+      ++ $non_toolbar_settings
+    )
   }
-
 
   $result | to json --indent 2 | save --force $out
   print $"Bookmarks written to ($out)"

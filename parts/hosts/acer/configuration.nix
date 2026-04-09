@@ -156,14 +156,31 @@
   };
 
   environment.variables.EDITOR = "hx";
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+  };
   environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    configPackages = [ pkgs.niri ];
+    config = {
+      common.default = [ "gtk" ];
+      niri = {
+      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
+    };
   };
+
+  # Helps portals 'find' each other and the compositor
+  # services.dbus.enable = true;
 
   users.users.armand = {
     isNormalUser = true;

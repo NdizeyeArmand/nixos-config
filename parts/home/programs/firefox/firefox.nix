@@ -15,6 +15,27 @@ let
 		"browser.sessionstore.max_resume_crashes" = -1;
 
 		"browser.urlbar.suggest.openpage" = false;
+
+		# Disable WebRTC IP leaking
+	  "media.peerconnection.enabled" = false;
+
+	  # Disable DNS prefetching
+	  "network.dns.disablePrefetch" = true;
+
+	  # Disable speculative connections
+	  "network.http.speculative-parallel-limit" = 0;
+
+	  # Disable captive portal detection (pings Mozilla)
+	  "network.captive-portal-service.enabled" = false;
+
+	  # Disable telemetry more thoroughly
+	  "toolkit.telemetry.unified" = false;
+	  "toolkit.telemetry.enabled" = false;
+
+	  # Prevent pointer grab bug on Wayland compositors
+	  "widget.gtk.ignore-bogus-leave-notify" = 1;
+		# "widget.use-xdg-desktop-portal.mime-handler" = 1;
+		# "widget.gtk.native-context-menus" = true;
 	};    	
 in
 {
@@ -128,7 +149,7 @@ in
     # Switch profiles via about:profiles page.
     # For options that are available in Home-Manager see
     # https://nix-community.github.io/home-manager/options.html#opt-programs.firefox.profiles
-    profiles ={
+    profiles = {
       profile_0 = {           # choose a profile name; directory is /home/<user>/.mozilla/firefox/profile_0
         id = 0;               # 0 is the default profile; see also option "isDefault"
         name = "profile_0";   # name as listed in about:profiles
@@ -151,10 +172,10 @@ in
    		    "privacy.resistFingerprinting" = true;          
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "ui.systemUsesDarkTheme" = 1;
-	        };
-	        
-          # add preferences for profile_1 here...
         };
+        
+        # add preferences for profile_1 here...
+      };
     # add profiles here...
     };
   };

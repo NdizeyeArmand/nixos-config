@@ -87,10 +87,15 @@
   };
 
   programs.ssh = {
-    enableDefaultConfig = false;
     matchBlocks = {
       "*" = {
         addKeysToAgent = "yes";
+      };
+      "gitlab" = {
+        hostname = "gitlab.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+        identitiesOnly = true;
       };
       "gitlab.com" = {
         user = "git";
@@ -132,20 +137,21 @@
     Unit = {
       Description = "Export Firefox bookmarks to dotfiles";
       After = [ "graphical-session.target" ];
-      StartLimitIntervalSec = 60;
-      StartLimitBurst = 5;
+      StartLimitIntervalSec = 120;
+      StartLimitBurst = 3;
     };
     Service = {
       Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 10";
       ExecStart = "${pkgs.nushell}/bin/nu %h/dotfiles/parts/home/programs/firefox/scripts/ff-bookmarks-live.nu --out %h/dotfiles/parts/home/programs/firefox/bookmarks.json";
       Environment = "HOME=%h";
     };
   };
 
   systemd.user.paths.firefox-bookmark-sync = {
-    Unit.Description = "Watch Firefox places.sqlite for changes";
+    Unit.Description = "Watch Firefox places.sqlite-wal for changes";
     Path = {
-      PathChanged = "%h/.mozilla/firefox/profile_0/places.sqlite";
+      PathModified = "%h/.mozilla/firefox/profile_0/places.sqlite-wal";
       Unit = "firefox-bookmark-sync.service";
     };
     Install.WantedBy = [ "default.target" ];
