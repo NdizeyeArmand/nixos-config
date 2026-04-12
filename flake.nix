@@ -3,9 +3,9 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
+    niri.url = "github:sodiboo/niri-flake";
     nixpkgs.url = "github:NixOS/nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
-    niri.url = "github:sodiboo/niri-flake";
     
     firefox-css = {
       url = "github:MrOtherGuy/firefox-csshacks";
@@ -19,16 +19,19 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };    
   };
 
   outputs =
     inputs@{
       flake-parts,
-      nixpkgs,
-      nixgl,
-      home-manager,
       niri,
+      nixpkgs,
       sops-nix,
+      stylix,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -40,8 +43,6 @@
       ];
       perSystem =
         {
-          config,
-          pkgs,
           ...
         }:
         {
@@ -61,6 +62,7 @@
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
+              stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -84,6 +86,7 @@
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
+              stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -107,6 +110,7 @@
               }
               niri.nixosModules.niri
               sops-nix.nixosModules.sops
+              stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;

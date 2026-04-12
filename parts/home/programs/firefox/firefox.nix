@@ -7,6 +7,7 @@ let
     "browser.newtabpage.activity-stream.showSponsored" = false;          
     "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;          
     "browser.newtabpage.activity-stream.feed.topsites" = false;
+  	"browser.contentblocking.category" = "strict";
 
     "browser.startup.page" = 3;
 
@@ -28,14 +29,22 @@ let
 	  # Disable captive portal detection (pings Mozilla)
 	  "network.captive-portal-service.enabled" = false;
 
+	  "privacy.resistFingerprinting" = false;
+
+	  "privacy.fingerprintingProtection" = true;
+		"privacy.fingerprintingProtection.overrides" = "-CSSPrefersColorScheme";
+
 	  # Disable telemetry more thoroughly
 	  "toolkit.telemetry.unified" = false;
 	  "toolkit.telemetry.enabled" = false;
 
+    "browser.theme.dark-private-windows" = true;
+    "layout.css.prefers-color-scheme.content-override" = 2;
+    "ui.systemUsesDarkTheme" = 1;
+
 	  # Prevent pointer grab bug on Wayland compositors
 	  "widget.gtk.ignore-bogus-leave-notify" = 1;
-		# "widget.use-xdg-desktop-portal.mime-handler" = 1;
-		# "widget.gtk.native-context-menus" = true;
+		"widget.use-xdg-desktop-portal.mime-handler" = 1;
 	};    	
 in
 {
@@ -85,13 +94,20 @@ in
     enable = true;
 
     policies = {
-				BlockAboutConfig = true;
 			  DefaultDownloadDirectory = "\${home}/Downloads";    	
 				DisableFirefoxAccounts = true;
 				DisableTelemetry = true;
         DisableAccounts = true;
         DisableFirefoxScreenshots = true;
 				DontCheckDefaultBrowser = true;
+
+				EnableTrackingProtection = {
+				  Value = true;
+				  Cryptomining = true;
+				  Fingerprinting = true;
+				  EmailTracking = true;
+				  Locked = false;
+				};
 
 				FirefoxHome = {
 					Search = true;
@@ -156,9 +172,7 @@ in
         isDefault = true;     # can be omitted; true if profile ID is 0
 		    bookmarks = bookmarks;
         settings = commonSettings // {
-        	"browser.contentblocking.category" = "strict";
           "browser.startup.homepage" = "https://nixos.org";
-   		    "privacy.resistFingerprinting" = true;
           # add preferences for profile_0 here...
         };
       };
@@ -167,11 +181,8 @@ in
         name = "Notes";
         isDefault = false;
         settings = commonSettings // {
-        	"browser.contentblocking.category" = "strict";
           "browser.startup.homepage" = "https://duckduckgo.com/";
-   		    "privacy.resistFingerprinting" = true;          
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-          "ui.systemUsesDarkTheme" = 1;
         };
         
         # add preferences for profile_1 here...

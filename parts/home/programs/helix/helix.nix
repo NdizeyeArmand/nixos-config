@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
   home.packages = with pkgs; [
     (writeScriptBin "md-preview-watch" ''
@@ -9,7 +9,6 @@
         let dir = ($filename | path dirname)
         let basename = ($filename | path basename)
         clear
-        ^glow -s dark $filename
         ^watchexec --watch $"($dir)" --filter $"($basename)" --debounce 1ms --shell=none --on-busy-update=restart -- glow -s dark $"($filename)"
       }
     '')
@@ -71,7 +70,18 @@
           select = "underline";
         };
       };
-      keys.normal.space.z = ":sh file-preview (realpath $'%{buffer_name}')";
+      keys.normal = {
+        space.z = ":sh file-preview (realpath \"%{buffer_name}\")";
+        C-y = [
+        	":sh rm -f /tmp/unique-ca1ea106"
+        	":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/unique-ca1ea106"
+        	":sh \"\\e[?1049h\\e[?2004h\" | save --raw /dev/tty"
+        	":open %sh{cat /tmp/unique-ca1ea106}"
+        	":redraw"
+        	":set mouse false"
+          ":set mouse true"
+        ];
+      };
     };
     languages = {
       language = [

@@ -73,13 +73,13 @@
         # - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         # Color of the ring on the active monitor.
-        active.color = "#7FC8FF";
+        active.color = "#7EA7A7";
 
         # Color of the ring on inactive monitors.
         #
         # The focus ring only draws around the active window, so the only place
         # where you can see its inactive-color is on other monitors.
-        inactive.color = "#505050";
+        inactive.color = "#3A3A3A";
 
         # You can also use gradients. They take precedence over solid colors.
         # Gradients are rendered the same as CSS linear-gradient(angle, from, to).
@@ -211,6 +211,14 @@
         matches = [ { app-id = "^(vlc|mpv)$"; } ];
         opacity = 1.0;
       }
+      # Keep these fully opaque
+      {
+        matches = [ { app-id = "yazi-chooser"; } ];
+        open-floating = true;
+        default-column-width = { fixed = 900; };
+        default-window-height = { fixed = 600; };
+      }
+
       {
         matches = [
           {

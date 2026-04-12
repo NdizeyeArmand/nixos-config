@@ -1,4 +1,44 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
+let
+  yaziChooser = pkgs.writeTextFile {
+    name = "yazi-chooser";
+    executable = true;
+    destination = "/bin/yazi-chooser";
+    text = ''
+      #!${pkgs.nushell}/bin/nu
+
+      def find-term [] {
+        let candidates = [
+          "${pkgs.foot}/bin/foot"
+          "${pkgs.ghostty}/bin/ghostty"
+        ]
+        $candidates | where { path exists } | get 0?
+      }
+
+      def main [multiple: int, allow_dirs: int, save: int, start_path: string, output: string, ...rest: string] {
+        cd $start_path
+
+        touch $output
+        
+        let term = find-term
+        if $term == null {
+          error make { msg: "No terminal emulator found in candidates" }
+        }
+        match ($term | path basename) {
+          "foot"      => { ^$term --app-id "yazi-chooser" -- ${pkgs.yazi}/bin/yazi --chooser-file $output }
+          "ghostty"   => { ^$term --class "yazi-chooser" -- ${pkgs.yazi}/bin/yazi --chooser-file $output }
+          _           => { ^$term "yazi-chooser" -- ${pkgs.yazi}/bin/yazi --chooser-file $output }
+        }
+      }
+    '';
+  };
+
+  bluemanSizes = [ "16x16" "22x22" "24x24" "32x32" "48x48" ];
+  bluemanIcons = {
+    "status" = [ "blueman-active" "blueman-disabled" "blueman-tray" "blueman"];
+    "apps" = [ "blueman" ];
+  };
+in
 {
   imports = [
     ./programs
@@ -12,7 +52,6 @@
   # Assist with reloading and restarting systemd units
   systemd.user.startServices = "sd-switch";
 
-  programs.fuzzel.enable = true;
   programs.swaylock.enable = true;
   services.swayidle.enable = true;
   services.polkit-gnome.enable = true;
@@ -22,7 +61,6 @@
     # Browsing
     # tor-browser # Privacy-focused browser routing traffic through the Tor network
     # mullvad # Mullvad VPN command-line client tools
-    dejsonlz4
 
     # File management
     nemo
@@ -32,6 +70,7 @@
     pandoc
     watchexec
     glow
+    yaziChooser
 
     # Niri essentials
     swaybg # Wallpaper
@@ -51,6 +90,7 @@
     # qbittorrent # OpenSource Qt Bittorrent client
 
     # Coding
+    aider-chat-with-playwright
     zellij # Terminal workspace with batteries included
     curl
     # claude-code # Agentic coding tool
@@ -166,6 +206,61 @@
     };
     Install.WantedBy = [ "timers.target" ];
   };
+
+  home.file = 
+    lib.listToAttrs (lib.flatten (map (size:
+      lib.mapAttrsToList (cat: icons:
+        lib.flatten (map (icon:
+          let path = "${pkgs.blueman}/share/icons/hicolor/${size}/${cat}/${icon}.png";
+          in lib.optional (builtins.pathExists path) {
+            name = ".local/share/icons/PapirosBlueman/${size}/${cat}/${icon}.png";
+            value.source = path;
+          }
+        ) icons)
+      ) bluemanIcons
+    ) bluemanSizes))
+    // {
+    ".local/share/icons/PapirosBlueman/index.theme".text = ''
+      [Icon Theme]
+      Name=PapirosBlueman
+      Comment=Papirus-Dark with blueman overrides
+      Inherits=Papirus-Dark
+    '';
+
+    ".config/xdg-desktop-portal-termfilechooser/config".text = ''
+      [filechooser]
+      cmd = ${yaziChooser}/bin/yazi-chooser
+      default_dir = $HOME
+    '';
+    }
+  ;
+
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = "PapirosBlueman";
+  };
+
+  # In home-manager or system config
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  stylix = {
+    targets = {
+      firefox.enable = false;
+      helix.enable = false;            
+      mako.enable = false;
+      niri.enable = false;      
+      qt.enable = false;            
+      waybar.enable = false;      
+    };
+    fonts.sizes = {
+      applications = 10;
+      desktop = 10;
+    };
+  };
   
   xdg.configFile."yazi/plugins/glow.yazi/main.lua".source = ./programs/yazi/glow.lua;
 
@@ -242,23 +337,40 @@
     }
   '';
 
-  xdg.desktopEntries.helix = {
-    name = "Helix";
-    genericName = "Text Editor";
-    comment = "Fast modal text editor";
-    exec = "foot hx %F";
-    terminal = false;
-    icon = "helix";
-    categories = [
-      "Utility"
-      "TextEditor"
-    ];
-    mimeType = [
-      "text/plain"
-      "text/markdown"
-      "application/x-nuscript"
-      "application/octet-stream"
-    ];
+  xdg.desktopEntries = {
+    "blueman-adapters" = {
+      name = "Bluetooth Adapters";
+      exec = "blueman-adapters";
+      icon = "blueman";
+      categories = [ "Settings" ];
+    };
+
+    "yazi" = {
+      name = "Yazi";
+      exec = "foot -- yazi %F";
+      icon = "system-file-manager";
+      categories = [ "System" "FileManager" ];
+    };
+
+    "Helix" = {
+      name = "Helix";
+      exec = "hx %F";
+      icon = "helix";
+      mimeType = [ "text/plain" "application/x-nuscript" "application/octet-stream" ];
+      noDisplay = true;
+    };
+
+    "footclient" = {
+      name = "Foot Client";
+      exec = "footclient";
+      noDisplay = true;
+    };
+
+    "foot-server" = {
+      name = "Foot Server";
+      exec = "foot --server";
+      noDisplay = true;
+    };
   };
 
   xdg.mimeApps = {
@@ -270,9 +382,9 @@
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
-      "text/plain" = "helix.desktop";
-      "application/x-nuscript" = "helix.desktop";
-      "application/octet-stream" = "helix.desktop";
+      "text/plain" = "Helix.desktop";
+      "application/x-nuscript" = "Helix.desktop";
+      "application/octet-stream" = "Helix.desktop";
     };
   };
 }

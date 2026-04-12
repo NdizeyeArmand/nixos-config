@@ -44,7 +44,17 @@ def main [--input: path, --output: path] {
 
   let data = (open $input)
   let toolbar = ($data.settings | where { |s| $s.toolbar? == true } | get 0?)
-  let other = ($data.settings | where { |s| $s.toolbar? != true } | each {|s| $s.bookmarks } | flatten)
+  let other = (
+    $data.settings
+    | where { |s| $s.toolbar? != true }
+    | each {|s|
+      let name = ($s.name? | default "")
+      if ($name | is-empty) {
+         $s.bookmarks 
+      } else {
+        [{ name: $name, bookmarks: $s.bookmarks }]
+      }
+  } | flatten )
 
   let root = {
     guid: "root________",

@@ -64,6 +64,24 @@
       # NOW set the completer to use the variable
       $env.config.completions.external.completer = $multiple_completers
 
+      def --env y [...args: string] {
+        if ("ZELLIJ" in $env) {
+          if (which foot | is-not-empty) {
+            ^foot -e yazi ...$args &
+          } else {
+            ^ghostty -e yazi ...$args &
+          }
+        } else {
+          let tmp = (mktemp -t "yazi-cwd.XXXXX")
+          ^yazi ...$args --cwd-file $tmp
+          let cwd = (open $tmp | str trim)
+          if $cwd != "" and $cwd != $env.PWD {
+            cd $cwd
+          }
+          rm -f $tmp
+        }
+      }
+
       def dvt [
         template: string  # Template name (python, rust, etc.)
         name?: string     # Optional project name

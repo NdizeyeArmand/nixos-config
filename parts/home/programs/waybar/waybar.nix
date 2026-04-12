@@ -29,12 +29,13 @@ let
     print $"($icon) ($temp)°C"
   '';
 in
+
 {
   programs.waybar = {
     enable = true;
     systemd = {
       enable = true;
-      target = "graphical-session.target";
+      targets = [ "graphical-session.target" ];
     };
     settings = [
       {
@@ -221,7 +222,7 @@ in
           "tooltip-format-ethernet" = "{ifname}\nIP = {ipaddr}\n󰶣 {bandwidthUpBits} 󰶡 {bandwidthDownBits}";
         };
         "tray" = {
-          #"icon-size" = 11;
+          "icon-size" = 16;
           "spacing" = 5;
         };
         "custom/wlogout" = {

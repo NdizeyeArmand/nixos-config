@@ -105,14 +105,16 @@ def main [--profile: path = "", --out: path] {
     (collect_children $bookmarks $places $menu_id) ++ (collect_children $bookmarks $places $unfiled_id)
   )
 
+  let menu_folders = ($non_toolbar_items | where { |item| ($item | get bookmarks?) != null })
+  let menu_urls = ($non_toolbar_items | where { |item| ($item | get url?) })
+
   let non_toolbar_settings = (
-    $non_toolbar_items | each { |item|
-      if ($item | get bookmarks?) != null {
-        { toolbar: false, name: $item.name, bookmarks: $item.bookmarks }
-      } else {
-        { toolbar: false, name: $item.name, bookmarks: [{ name: $item.name, url: $item.url }] }
-      }
-    }
+    ($menu_folders | each { |item|
+      { toolbar: false, name: $item.name, bookmarks: $item.bookmarks }
+    }) ++ (
+    if ($menu_urls | is-empty) { [] } else {
+      [{ toolbar: false, name: "Unsorted", bookmarks: $menu_urls }]
+    })
   )
 
   let result = {
