@@ -3,6 +3,6 @@
 }:
 {
   imports = [
-    ./theme.nix
+    ./fuzzel.nix
   ];
 }

@@ -6,6 +6,7 @@
     ./carapace
     ./discord
     ./firefox
+    ./fuzzel
     ./helix
     ./kanshi
     ./mako

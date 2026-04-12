@@ -11,6 +11,7 @@
     helix # Modal CLI text editor
     xwayland-satellite
     foot
+    ghostty
     wget # Tool for retrieving files using HTTP, HTTPS, and FTP
     ripgrep
     uutils-coreutils
@@ -28,5 +29,6 @@
     noto-fonts
     noto-fonts-color-emoji
     noto-fonts-cjk-sans
+    papirus-icon-theme
   ];
 }

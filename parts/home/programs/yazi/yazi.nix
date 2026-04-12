@@ -2,7 +2,7 @@
 {
   programs.yazi = {
     enable = true;
-
+    enableNushellIntegration = false;
     settings = {
       opener = {
         edit = [

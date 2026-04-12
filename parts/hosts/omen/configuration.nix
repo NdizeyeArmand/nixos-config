@@ -20,6 +20,7 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.default = "saved";
+  # boot.loader.grub.default = "osprober-efi-XXXX-YYYY";
   boot.loader.grub.configurationLimit = 5;
   boot.loader.timeout = 2;
   boot.plymouth.enable = true;
@@ -134,7 +135,13 @@
     LC_TIME = "nl_BE.UTF-8";
   };
 
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    desktopManager.xterm.enable = false;
+    excludePackages = with pkgs; [
+       xterm
+    ];    
+  };
 
   console.keyMap = "be-latin1";
 
@@ -152,13 +159,22 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.enable = true;    
+    wireplumber.enable = true;
+  };
+
+  stylix = {
+    enable = true;
+    # autoEnable = false;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/ocean.yaml";    
+    targets.qt.enable = false;
   };
 
   environment.variables.EDITOR = "hx";
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
+    GTK_USE_PORTAL = "1";
   };
   environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 
@@ -167,14 +183,24 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
+      (xdg-desktop-portal-termfilechooser.overrideAttrs (old: {
+          postInstall = (old.postInstall or "") + ''
+            substituteInPlace $out/share/xdg-desktop-portal/portals/termfilechooser.portal \
+              --replace "UseIn=" "UseIn=niri;"
+          '';
+        }))
     ];
     configPackages = [ pkgs.niri ];
     config = {
-      common.default = [ "gtk" ];
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+      };
       niri = {
-      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
       };
     };
   };
@@ -205,11 +231,11 @@
   };
 
   nix.extraOptions = ''
-    min-free = ${toString (100 * 1024 * 1024)}
-    max-free = ${toString (1024 * 1024 * 1024)}
+    min-free = ${toString (5 * 1024 * 1024 * 1024)}   # trigger GC at 5GB free
+    max-free = ${toString (10 * 1024 * 1024 * 1024)}  # free up until 10GB available
   '';
 
-  nixpkgs.config.allowBroken = false; # not needed, just context
+  nixpkgs.config.allowBroken = false;
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -267,6 +293,10 @@
   ];
 
   nix.optimise.automatic = true;
+  nix.settings = {
+    download-buffer-size = 524288000;
+    auto-optimise-store = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

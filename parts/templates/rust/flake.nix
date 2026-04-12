@@ -10,7 +10,7 @@
   };
 
   outputs =
-    { self, ... }@inputs:
+    { ... }@inputs:
 
     let
       supportedSystems = [
