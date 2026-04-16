@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     (writeScriptBin "md-preview-watch" ''
