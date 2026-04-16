@@ -3,7 +3,7 @@
 # About
 
 In-house baked configs for Home-Manager and NixOS. Borrowed bits sprinkled on
-top. Using [flakes](https://nixos.wiki/wiki/Flakes) and
+top. Using [flakes](https://wiki.nixos.org/wiki/Flakes) and
 [flake-parts](https://github.com/hercules-ci/flake-parts).
 
 See an overview of the flake outputs by running
@@ -12,10 +12,11 @@ See an overview of the flake outputs by running
 
 # Structure
 
-- [home](./home): Home Manager config
-- [module](./modules): Custom options
-- [hosts](./hosts): Multiple machine configurations
-- [secrets](./secrets): SOPS-encrypted files
+- [home](./parts/home): Home Manager config
+- [modules](./parts/modules): Custom options
+- [hosts](./parts/hosts): Multiple machine configurations
+- [secrets](./parts/secrets): SOPS-encrypted files
+- [templates](./parts/templates): Isolated development environments
 
 
 # Usage
@@ -23,7 +24,7 @@ See an overview of the flake outputs by running
 <details>
   <summary>Install</summary>
 
-To install NixOS use the nix installer ISO.
+To install NixOS use the [graphical NixOS installer](https://nixos.org/download/#nixos-iso).
 Then run the following:
 ```nu
 git clone gitlab.com/DarkLoon/dotfiles ~/
@@ -50,19 +51,17 @@ Some features of my config:
 
 - Structured to allow multiple **NixOS configurations**, including **desktop** and **laptop**
 - **niri** environment
-- Custom **Ghostty** setup
+- **sops-nix** for secrets management
 <!-- - **Opt-in persistance** through impermanence + blank snapshot with zfs -->
 <!-- - Homelab all configured in nix. -->
-<!-- - **sops-nix** for secrets management -->
 
 
 # Showcase
 
 ### Desktop
 
-![terminal](home/images/terminal.png)
-![notifications](home/images/notifications.png)
-![wallpaper](home/images/wallpaper.png)
+![snapshot](/parts/home/images/snapshot.png)
+![wallpaper](/parts/home/images/wallpaper.png)
 
 
 # Appendix
@@ -78,3 +77,4 @@ Other people from whom I learned and copied:
 - [fufexan/dotfiles](https://github.com/fufexan/dotfiles)
 - [Pipshag/dotfiles_nord](https://github.com/Pipshag/dotfiles_nord)
 - [Igaboury](https://github.com/lgaboury/Sway-Waybar-Install-Script)
+- [Claude Sonnet 4.6, Anthropic](https://claude.ai/)
