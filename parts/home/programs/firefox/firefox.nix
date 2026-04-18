@@ -1,6 +1,6 @@
 { inputs, lib, ... }:
 let
-	bookmarks = lib.importJSON ./bookmarks.json;
+	bookmarkData = lib.importJSON ./bookmarks.json;
 	
 	commonSettings = {
     "browser.newtabpage.activity-stream.feeds.section.highlights" = true;
@@ -170,9 +170,11 @@ in
         id = 0;               # 0 is the default profile; see also option "isDefault"
         name = "profile_0";   # name as listed in about:profiles
         isDefault = true;     # can be omitted; true if profile ID is 0
-		    bookmarks = bookmarks;
+		    bookmarks = {
+		    	force = true;
+		    	settings = bookmarkData.settings;
+	    	};
         settings = commonSettings // {
-          "browser.startup.homepage" = "https://nixos.org";
           # add preferences for profile_0 here...
         };
       };
