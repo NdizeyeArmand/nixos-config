@@ -49,10 +49,10 @@
         };
       flake = {
         nixosConfigurations = {
-          nixos = nixpkgs.lib.nixosSystem {
+          cassini = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
-              ./parts/hosts/acer
+              ./parts/hosts/cassini
               {
                 nixpkgs.config.allowUnfreePredicate =
                   pkg:
@@ -73,10 +73,10 @@
               }
             ];
           };
-          omen = nixpkgs.lib.nixosSystem {
+          odyssey = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
-              ./parts/hosts/omen
+              ./parts/hosts/odyssey
               {
                 nixpkgs.config.allowUnfreePredicate =
                   pkg:
@@ -97,30 +97,7 @@
               }
             ];
           };
-          server = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; };
-            modules = [
-              ./parts/hosts/server
-              {
-                nixpkgs.config.allowUnfreePredicate =
-                  pkg:
-                  builtins.elem (nixpkgs.lib.getName pkg) [
-                    "vscode"
-                  ];
-              }
-              niri.nixosModules.niri
-              sops-nix.nixosModules.sops
-              stylix.nixosModules.stylix
-              inputs.home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.armand = ./parts/home;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = { inherit inputs; };
-              }
-            ];
-          };
+          # HOSTS_END
         };
       };
     };

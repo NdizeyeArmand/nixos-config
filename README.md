@@ -14,7 +14,7 @@ See an overview of the flake outputs by running
 
 - [home](./parts/home): Home Manager config
 - [modules](./parts/modules): Custom options
-- [hosts](./parts/hosts): Multiple machine configurations
+- [hosts](./parts/hosts): Machine configurations
 - [secrets](./parts/secrets): SOPS-encrypted files
 - [templates](./parts/templates): Isolated development environments
 
@@ -24,15 +24,17 @@ See an overview of the flake outputs by running
 <details>
   <summary>Install</summary>
 
-To install NixOS use the [graphical NixOS installer](https://nixos.org/download/#nixos-iso).
-Then run the following:
-```nu
-git clone gitlab.com/DarkLoon/dotfiles ~/
-cd ~/dotfiles
+Install NixOS using the [graphical installer](https://nixos.org/download/#nixos-iso), then:
 
-# To build system configuration (alternatively ./bootstrap.sh desktop or ./bootstrap.sh server)
-./bootstrap.sh
+```nu
+git clone https://gitlab.com/Dark_Loon/dotfiles ~/dotfiles
+cd ~/dotfiles
+./bootstrap.nu
 ```
+
+The script will walk you through setting up a new machine.
+To use a specific existing host as a starting point: `./bootstrap.nu --template odyssey`
+
 </details>
 
 
@@ -49,11 +51,11 @@ dvt elm
 
 Some features of my config:
 
-- Structured to allow multiple **NixOS configurations**, including **desktop** and **laptop**
-- **niri** environment
+- Multiple **NixOS configurations** across machines
+- **niri** Wayland compositor
 - **sops-nix** for secrets management
-<!-- - **Opt-in persistance** through impermanence + blank snapshot with zfs -->
-<!-- - Homelab all configured in nix. -->
+<!-- - **Opt-in persistence** through impermanence + blank snapshot with ZFS -->
+<!-- - Homelab all configured in Nix. -->
 
 
 # Showcase
