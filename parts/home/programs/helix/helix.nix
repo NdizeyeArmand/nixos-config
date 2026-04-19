@@ -31,6 +31,12 @@
         }
       }
     '')
+    (writeScriptBin "rucola-glow" ''
+      #!/usr/bin/env nu 
+      def main [filename: string] {
+        ^open-terminal $"glow -p '($filename)'"
+      }
+    '')
     (writeScriptBin "file-preview" ''
       #!/usr/bin/env nu 
       def main [
