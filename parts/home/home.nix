@@ -278,7 +278,7 @@ in
         "Notes",
         "%p",
     ]
-    secondary_viewer = ["glow", "%p"]
+    secondary_viewer = ["rucola-glow", "%p"]
     css = "${config.home.homeDirectory}/.config/rucola/default_dark.css"
     katex = true
 

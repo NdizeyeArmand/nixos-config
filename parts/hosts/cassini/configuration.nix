@@ -18,8 +18,23 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.default = "saved";
+  boot.loader.grub.useOSProber = false;
+  # boot.loader.grub.default = "saved";
+  boot.loader.grub.extraEntries = ''
+    menuentry 'Windows 10' --class windows --class os $menuentry_id_option 'osprober-efi-6AE9-C597' {
+    	savedefault
+    	insmod part_gpt
+    	insmod fat
+    	set root='hd0,gpt1'
+    	if [ x$feature_platform_search_hint = xy ]; then
+    	  search --no-floppy --fs-uuid --set=root --hint-ieee1275='ieee1275//disk@0,gpt1' --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  6AE9-C597
+    	else
+    	  search --no-floppy --fs-uuid --set=root 6AE9-C597
+    	fi
+    	chainloader /efi/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
+  boot.loader.grub.default = "NixOS";
   boot.loader.grub.configurationLimit = 5;
   boot.loader.timeout = 2;
   boot.plymouth.enable = true;
