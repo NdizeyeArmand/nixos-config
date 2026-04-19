@@ -18,19 +18,8 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.useOSProber = false;
-  # boot.loader.grub.default = "saved";
-  boot.loader.grub.extraEntriesBeforeNixOS = true;
-  boot.loader.grub.extraEntries = ''
-    menuentry "Windows 11" --class windows --class os $menuentry_id_option 'osprober-efi-F2EC-27C9' {
-      savedefault
-      insmod part_gpt
-      insmod fat
-      search --no-floppy --fs-uuid --set=root F2EC-27C9
-      chainloader /efi/Microsoft/Boot/bootmgfw.efi
-    }
-  '';
-  boot.loader.grub.default = "osprober-efi-F2EC-27C9";
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.default = "saved";
   boot.loader.grub.configurationLimit = 5;
   boot.loader.timeout = 2;
   boot.plymouth.enable = true;
@@ -39,7 +28,7 @@
   ];
   #boot.consoleLogLevel = 1;
 
-  networking.hostName = "omen"; # Define your hostname.
+  networking.hostName = "cassini"; # Define your hostname.
   networking.networkmanager.enable = true;
   networking.networkmanager.ensureProfiles.environmentFiles = [
     config.sops.secrets.home_wifi_1.path
@@ -176,7 +165,7 @@
     enable = true;
     # autoEnable = false;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/ocean.yaml";    
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/ocean.yaml";
     targets.qt.enable = false;
   };
 
