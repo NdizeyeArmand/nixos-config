@@ -35,6 +35,12 @@
             orphan = true;
           }
         ];
+        audio = [
+          {
+            run = ''vlc "$@"'';
+            orphan = true;
+          }
+        ];
       };
 
       open = {
@@ -99,6 +105,10 @@
           {
             mime = "application/pdf";
             use = "pdf";
+          }
+          {
+            mime = "audio/*";
+            use = "audio";
           }
 
           { mime = "*"; use = "edit"; }

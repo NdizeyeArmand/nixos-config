@@ -14,6 +14,7 @@
     ./niri
     ./nushell
     ./pandoc
+    ./rmpc
     ./starship
     ./vscode
     ./waybar

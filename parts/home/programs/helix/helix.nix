@@ -102,7 +102,7 @@ in
         };
       };
       keys.normal = {
-        space.z = ":sh file-preview (realpath \"%{buffer_name}\")";
+        space.z = ":sh file-preview (realpath -- \"%{buffer_name}\")";
         C-y = [
         	":sh rm -f /tmp/unique-ca1ea106"
         	":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/unique-ca1ea106"

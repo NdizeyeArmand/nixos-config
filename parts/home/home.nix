@@ -57,6 +57,19 @@ in
   services.polkit-gnome.enable = true;
   services.udiskie.enable = true;
 
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/Music";
+    dataDir = "${config.home.homeDirectory}/.local/share/mpd";
+
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "PipeWire Output"
+      }
+    '';
+  };
+
   home.packages = with pkgs; [
     # Browsing
     # tor-browser # Privacy-focused browser routing traffic through the Tor network
@@ -82,6 +95,7 @@ in
     wlogout
 
     # Media
+    mpc
     pavucontrol
     obs-studio
     obs-cmd
@@ -123,14 +137,14 @@ in
     settings = {
       user.name = "Dark_Loon";
       user.email = "armandgaeln@gmail.com";
-      user.signingkey = "~/.ssh/id_ed25519";
+      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
       alias = {
         co = "checkout";
         st = "status";
       };
 
       gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
+      gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
       commit.gpgsign = true;
       tag.gpgsign = true;
     };
@@ -144,12 +158,12 @@ in
       "gitlab" = {
         hostname = "gitlab.com";
         user = "git";
-        identityFile = "~/.ssh/id_ed25519";
+        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
         identitiesOnly = true;
       };
       "gitlab.com" = {
         user = "git";
-        identityFile = "~/.ssh/id_ed25519";
+        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
         identitiesOnly = true;
       };            
     };
@@ -278,6 +292,316 @@ in
   
   xdg.configFile."yazi/plugins/glow.yazi/main.lua".source = ./programs/yazi/glow.lua;
 
+  xdg.configFile."rmpc/themes/catppuccin_macchiato.ron".text = ''
+        #![enable(implicit_some)]
+        #![enable(unwrap_newtypes)]
+        #![enable(unwrap_variant_newtypes)]
+        (
+            default_album_art_path: None,
+            format_tag_separator: " | ",
+            browser_column_widths: [20, 38, 42],
+            background_color: "#24273a",
+            text_color: "#cad3f5",
+            header_background_color: "#1e2030",
+            modal_background_color: "#1e2030",
+            modal_backdrop: false,
+            preview_label_style: (fg: "#eed49f"),
+            preview_metadata_group_style: (fg: "#eed49f", modifiers: "Bold"),
+            highlighted_item_style: (fg: "#c6a0f6", modifiers: "Bold"),
+            current_item_style: (fg: "#24273a", bg: "#8aadf4", modifiers: "Bold"),
+            borders_style: (fg: "#494d64"),
+            highlight_border_style: (fg: "#8aadf4"),
+            symbols: (
+                song: "S",
+                dir: "D",
+                playlist: "P",
+                marker: "M",
+                ellipsis: "...",
+                song_style: None,
+                dir_style: None,
+                playlist_style: None,
+            ),
+            level_styles: (
+                info: (fg: "#8aadf4", bg: "#24273a"),
+                warn: (fg: "#eed49f", bg: "#24273a"),
+                error: (fg: "#ed8796", bg: "#24273a"),
+                debug: (fg: "#a6da95", bg: "#24273a"),
+                trace: (fg: "#c6a0f6", bg: "#24273a"),
+            ),
+            progress_bar: (
+                symbols: ["█", "█", "█", " ", "█"],
+                track_style: (fg: "#363a4f"),
+                elapsed_style: (fg: "#8aadf4"),
+                thumb_style: (fg: "#b7bdf8"),
+                use_track_when_empty: true,
+            ),
+            scrollbar: (
+                symbols: ["│", "█", "▲", "▼"],
+                track_style: (fg: "#363a4f"),
+                ends_style: (fg: "#494d64"),
+                thumb_style: (fg: "#8aadf4"),
+            ),
+            tab_bar: (
+                active_style: (fg: "#24273a", bg: "#8aadf4", modifiers: "Bold"),
+                inactive_style: (fg: "#a5adcb", bg: "#1e2030"),
+            ),
+            lyrics: (
+                timestamp: false
+            ),
+            browser_song_format: [
+                (
+                    kind: Group([
+                        (kind: Property(Track)),
+                        (kind: Text(" ")),
+                    ])
+                ),
+                (
+                    kind: Group([
+                        (kind: Property(Artist)),
+                        (kind: Text(" - ")),
+                        (kind: Property(Title)),
+                    ]),
+                    default: (kind: Property(Filename))
+                ),
+            ],
+            song_table_format: [
+                (
+                    prop: (kind: Property(Artist),
+                        default: (kind: Text("Unknown"))
+                    ),
+                    label_prop: (kind: Text("Artist")),
+                    width: "20%",
+                ),
+                (
+                    prop: (kind: Property(Title),
+                        default: (kind: Text("Unknown"))
+                    ),
+                    label_prop: (kind: Text("Title")),
+                    width: "35%",
+                ),
+                (
+                    prop: (kind: Property(Album), style: (fg: "#b8c0e0"),
+                        default: (kind: Text("Unknown Album"), style: (fg: "#b8c0e0"))
+                    ),
+                    label_prop: (kind: Text("Album")),
+                    width: "30%",
+                ),
+                (
+                    prop: (kind: Property(Duration),
+                        default: (kind: Text("-"))
+                    ),
+                    label_prop: (kind: Text("Duration")),
+                    width: "15%",
+                    alignment: Right,
+                ),
+            ],
+            layout: Split(
+                direction: Vertical,
+                panes: [
+                    (
+                        size: "4",
+                        pane: Split(
+                            direction: Horizontal,
+                            panes: [
+                                (
+                                    size: "35",
+                                    borders: "LEFT | TOP | BOTTOM",
+                                    border_symbols: Inherited(parent: Rounded, bottom_left: "├"),
+                                    pane: Component("header_left")
+                                ),
+                                (
+                                    size: "100%",
+                                    borders: "ALL",
+                                    border_symbols: Inherited(parent: Rounded, top_left: "┬", top_right: "┬", bottom_left: "┴", bottom_right: "┴"),
+                                    pane: Component("header_center")
+                                ),
+                                (
+                                    size: "35",
+                                    borders: "RIGHT | TOP | BOTTOM",
+                                    border_symbols: Inherited(parent: Rounded, bottom_right: "┤"),
+                                    pane: Component("header_right")
+                                ),
+                            ]
+                        )
+                    ),
+                    (
+                        pane: Pane(Tabs),
+                        borders: "RIGHT | LEFT | BOTTOM",
+                        border_symbols: Rounded,
+                        size: "2",
+                    ),
+                    (
+                        pane: Pane(TabContent),
+                        size: "100%",
+                    ),
+                    (
+                        size: "3",
+                        pane: Split(
+                            direction: Horizontal,
+                            panes: [
+                                (
+                                    size: "12",
+                                    borders: "ALL",
+                                    border_symbols: Inherited(parent: Rounded, top_right: "┬", bottom_right: "┴"),
+                                    pane: Component("input_mode")
+                                ),
+                                (
+                                    size: "100%",
+                                    borders: "TOP | BOTTOM | RIGHT",
+                                    border_symbols: Rounded,
+                                    border_title: [(kind: Text(" ")), (kind: Property(Status(QueueLength()))), (kind: Text(" songs / ")), (kind: Property(Status(QueueTimeTotal()))), (kind: Text(" total time "))],
+                                    border_title_alignment: Right,
+                                    pane: Component("progress_bar"),
+                                ),
+                            ]
+                        ),
+                    ),
+                ],
+            ),
+            components: {
+                "state": Pane(Property(
+                    content: [
+                        (kind: Text("["), style: (fg: "#eed49f", modifiers: "Bold")),
+                        (kind: Property(Status(StateV2( ))), style: (fg: "#eed49f", modifiers: "Bold")),
+                        (kind: Text("]"), style: (fg: "#eed49f", modifiers: "Bold")),
+                    ], align: Left,
+                )),
+                "title": Pane(Property(
+                    content: [
+                        (kind: Property(Song(Title)), style: (modifiers: "Bold"),
+                            default: (kind: Text("No Song"), style: (modifiers: "Bold"))),
+                    ], align: Center, scroll_speed: 1
+                )),
+                "volume": Split(
+                    direction: Horizontal,
+                    panes: [
+                        (size: "1", pane: Pane(Property(content: [(kind: Text(""))]))),
+                        (size: "100%", pane: Pane(Volume(kind: Slider(symbols: (filled: "─", thumb: "●", track: "─"))))),
+                        (size: "3", pane: Pane(Property(content: [(kind: Property(Status(Volume)), style: (fg: "#8aadf4"))], align: Right))),
+                        (size: "2", pane: Pane(Property(content: [(kind: Text("%"), style: (fg: "#8aadf4"))]))),
+                    ]
+                ),
+                "elapsed_and_bitrate": Pane(Property(
+                    content: [
+                        (kind: Property(Status(Elapsed))),
+                        (kind: Text(" / ")),
+                        (kind: Property(Status(Duration))),
+                        (kind: Group([
+                            (kind: Text(" (")),
+                            (kind: Property(Status(Bitrate))),
+                            (kind: Text(" kbps)")),
+                        ])),
+                    ],
+                    align: Left,
+                )),
+                "artist_and_album": Pane(Property(
+                    content: [
+                        (kind: Property(Song(Artist)), style: (fg: "#eed49f", modifiers: "Bold"),
+                            default: (kind: Text("Unknown"), style: (fg: "#eed49f", modifiers: "Bold"))),
+                        (kind: Text(" - ")),
+                        (kind: Property(Song(Album)), default: (kind: Text("Unknown Album"))),
+                    ], align: Center, scroll_speed: 1
+                )),
+                "states": Split(
+                    direction: Horizontal,
+                    panes: [
+                        (
+                            size: "1",
+                            pane: Pane(Empty())
+                        ),
+                        (
+                            size: "100%",
+                            pane: Pane(Property(content: [(kind: Property(Status(InputBuffer())), style: (fg: "#8aadf4"), align: Left)]))
+                        ),
+                        (
+                            size: "6",
+                            pane: Pane(Property(content: [
+                                (kind: Text("["), style: (fg: "#8aadf4", modifiers: "Bold")),
+                                (kind: Property(Status(RepeatV2(
+                                    on_label: "z",
+                                    off_label: "z",
+                                    on_style: (fg: "#eed49f", modifiers: "Bold"),
+                                    off_style: (fg: "#494d64", modifiers: "Dim"),
+                                )))),
+                                (kind: Property(Status(RandomV2(
+                                    on_label: "x",
+                                    off_label: "x",
+                                    on_style: (fg: "#eed49f", modifiers: "Bold"),
+                                    off_style: (fg: "#494d64", modifiers: "Dim"),
+                                )))),
+                                (kind: Property(Status(ConsumeV2(
+                                    on_label: "c",
+                                    off_label: "c",
+                                    oneshot_label: "c",
+                                    on_style: (fg: "#eed49f", modifiers: "Bold"),
+                                    off_style: (fg: "#494d64", modifiers: "Dim"),
+                                    oneshot_style: (fg: "#ed8796", modifiers: "Dim"),
+                                )))),
+                                (kind: Property(Status(SingleV2(
+                                    on_label: "v",
+                                    off_label: "v",
+                                    oneshot_label: "v",
+                                    on_style: (fg: "#eed49f", modifiers: "Bold"),
+                                    off_style: (fg: "#494d64", modifiers: "Dim"),
+                                    oneshot_style: (fg: "#ed8796", modifiers: "Bold"),
+                                )))),
+                                (kind: Text("]"), style: (fg: "#8aadf4", modifiers: "Bold")),
+                                ],
+                                align: Right
+                            ))
+                        ),
+                    ]
+                ),
+                "input_mode": Pane(Property(
+                    content: [
+                        (kind: Transform(Replace(content: (kind: Property(Status(InputMode()))), replacements: [
+                            (match: "Normal", replace: (kind: Text(" NORMAL "), style: (fg: "#24273a", bg: "#8aadf4"))),
+                            (match: "Insert", replace: (kind: Text(" INSERT "), style: (fg: "#24273a", bg: "#a6da95"))),
+                        ])))
+                    ], align: Center
+                )),
+                "header_left": Split(
+                    direction: Vertical,
+                    panes: [
+                        (size: "1", pane: Component("state")),
+                        (size: "1", pane: Component("elapsed_and_bitrate")),
+                    ]
+                ),
+                "header_center": Split(
+                    direction: Vertical,
+                    panes: [
+                        (size: "1", pane: Component("title")),
+                        (size: "1", pane: Component("artist_and_album")),
+                    ]
+                ),
+                "header_right": Split(
+                    direction: Vertical,
+                    panes: [
+                        (size: "1", pane: Component("volume")),
+                        (size: "1", pane: Component("states")),
+                    ]
+                ),
+                "progress_bar": Split(
+                    direction: Horizontal,
+                    panes: [
+                        (
+                            size: "1",
+                            pane: Pane(Empty())
+                        ),
+                        (
+                            size: "100%",
+                            pane: Pane(ProgressBar)
+                        ),
+                        (
+                            size: "1",
+                            pane: Pane(Empty())
+                        ),
+                    ]
+                )
+            },
+        )
+    '';
+
   xdg.configFile."rucola/config.toml".text = ''
     file_types = ["markdown"]
     default_extension = "md"
@@ -383,6 +707,12 @@ in
     "foot-server" = {
       name = "Foot Server";
       exec = "foot --server";
+      noDisplay = true;
+    };
+
+    "rmpc" = {
+      name = "Rmpc";
+      exec = "rmpc";
       noDisplay = true;
     };
   };

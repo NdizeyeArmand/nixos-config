@@ -240,6 +240,8 @@ align(center, text(font: font-sans, size: 8pt, style: "italic", fill: luma(160))
 
 } // end 'let conf'
 
+#let horizontalrule = line(length: 100%, stroke: 0.5pt)
+
 #show: conf.with(
   $if(title)$title: [$title$],$endif$
   $if(subtitle)$subtitle: [$subtitle$],$endif$
