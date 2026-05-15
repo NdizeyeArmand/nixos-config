@@ -3,6 +3,7 @@
 }:
 {
   imports = [
+    # ./aider
     ./carapace
     ./discord
     ./firefox
@@ -12,6 +13,7 @@
     ./mako
     ./niri
     ./nushell
+    ./pandoc
     ./starship
     ./vscode
     ./waybar

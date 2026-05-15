@@ -62,7 +62,8 @@ Some features of my config:
 
 ### Desktop
 
-![snapshot](/parts/home/images/snapshot.png)
+![snapshot_1](/parts/home/images/snapshot_1.png)
+![snapshot_2](/parts/home/images/snapshot_2.png)
 ![wallpaper](/parts/home/images/wallpaper.png)
 
 

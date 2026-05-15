@@ -67,7 +67,7 @@ in
     rucola # Terminal-based markdown note manager
     file
     xdg-utils
-    pandoc
+    typst
     watchexec
     glow
     yaziChooser
@@ -91,9 +91,9 @@ in
     # qbittorrent # OpenSource Qt Bittorrent client
 
     # Coding
-    aider-chat-with-playwright
     zellij # Terminal workspace with batteries included
     curl
+    aider-chat-with-playwright
     azure-cli
     # claude-code # Agentic coding tool
 

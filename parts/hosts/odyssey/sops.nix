@@ -25,6 +25,13 @@
         path = "/home/armand/.ssh/id_ed25519";
         mode = "0600";
       };
+      anthropic_key = {
+        sopsFile = ../../secrets/anthropic_key.enc;
+        format = "binary";
+        owner = "armand";
+        mode = "0600";
+        path = "/home/armand/.secrets/anthropic_key";
+      };
       speech_key = { };
       speech_region = { };
       azure_openai_key = { };

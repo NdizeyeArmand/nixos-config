@@ -29,6 +29,7 @@
     noto-fonts
     noto-fonts-color-emoji
     noto-fonts-cjk-sans
-    papirus-icon-theme
+    stix-two
+    source-sans
   ];
 }

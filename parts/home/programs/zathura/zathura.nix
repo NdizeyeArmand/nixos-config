@@ -2,7 +2,7 @@
 {
   programs.zathura = {
     enable = true;
-    # extraConfig = ''
+    extraConfig = ''
     #   # Base16 Apathy
     #   # Author: Jannik Siebert (https://github.com/janniks)
 
@@ -36,8 +36,8 @@
     #   set recolor-lightcolor          "#031A16"
     #   set recolor-darkcolor           "#A7CEC8"
 
-    #   set recolor                     "false"
-    #   set recolor-keephue             "false"
-    # '';
+      set recolor                     true
+      set recolor-keephue             true
+    '';
   };
 }

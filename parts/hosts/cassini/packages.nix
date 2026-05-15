@@ -28,5 +28,7 @@
     noto-fonts
     noto-fonts-color-emoji
     noto-fonts-cjk-sans
+    stix-two
+    source-sans
   ];
 }

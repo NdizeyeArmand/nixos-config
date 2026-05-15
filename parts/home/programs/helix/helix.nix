@@ -1,21 +1,46 @@
 { pkgs, config, ... }:
+let
+  typstTemplate = ../pandoc/default.typ;
+in
 {
   home.packages = with pkgs; [
-    (writeScriptBin "md-preview-watch" ''
+    (writeScriptBin "md-preview" ''
       #!/usr/bin/env nu 
       def main [
         filename: string
       ] {
-        let dir = ($filename | path dirname)
-        let basename = ($filename | path basename)
-        clear
-        ^watchexec --watch $"($dir)" --filter $"($basename)" --debounce 1ms --shell=none --on-busy-update=restart -- glow -s dark $"($filename)"
-      }
-    '')
-    (writeScriptBin "md-preview" ''
-      #!/usr/bin/env nu 
-      def main [filename: string] {
-        ^open-terminal $"md-preview-watch '($filename)'"
+        let pdf_path = $"/tmp/($filename | hash md5).pdf"
+
+        ^pandoc $filename --pdf-engine=typst --template=${typstTemplate} -o $pdf_path
+        while not ($pdf_path | path exists) { sleep 100ms }
+
+        let zathura_alive = (
+          do { ^pgrep -f $"zathura ($pdf_path)" } | complete | get exit_code
+        ) == 0
+
+        if not $zathura_alive {
+          ^setsid --fork zathura $pdf_path
+        }
+
+        let watch_alive = (
+          do { ^pgrep -f $"watchexec.*($filename | path basename)" } | complete | get exit_code
+        ) == 0
+
+        if not $watch_alive {
+          let watch_args = [
+            "--watch" ($filename | path dirname)
+            "--filter" ($filename | path basename)
+            "--debounce" "200ms"
+            "--shell=none"
+            "--on-busy-update=queue"
+            "--"
+            "pandoc" $filename
+            "--pdf-engine=typst"
+            "--template=${typstTemplate}"
+            "-o" $pdf_path
+          ]
+          ^setsid --fork watchexec ...$watch_args
+        }
       }
     '')
     (writeScriptBin "open-terminal" ''
@@ -55,8 +80,8 @@
       def main [
         filename: string
       ] {
-        let basename = ($filename | path parse | get stem)
-        let pdf_path = ($basename + ".pdf")
+        let stem = ($filename | path parse | get stem)
+        let pdf_path = ($stem + ".pdf")
         ^zathura $pdf_path
       }
     '')

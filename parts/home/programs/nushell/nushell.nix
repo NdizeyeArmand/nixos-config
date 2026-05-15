@@ -4,8 +4,8 @@
     enable = true;
     extraEnv = ''
     $env.EDITOR = "hx"
-
     $env.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /home/armand/.ssh/id_ed25519"
+    $env.ANTHROPIC_API_KEY = (open /home/armand/.secrets/anthropic_key | str trim)
 
     if ($env.HOME | path join '.secrets' | path exists) {
       ls ($env.HOME | path join '.secrets')

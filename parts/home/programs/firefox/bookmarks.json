@@ -8,10 +8,6 @@
           "name": "Nu, April",
           "bookmarks": [
             {
-              "name": "Practice chess positions • lichess.org",
-              "url": "https://lichess.org/practice"
-            },
-            {
               "name": "https://deepwiki.com/search/bookmarks_7d728cf9-772e-4955-a635-1ff7bba97aaf?mode=fast",
               "url": "https://deepwiki.com/search/bookmarks_7d728cf9-772e-4955-a635-1ff7bba97aaf?mode=fast"
             },
@@ -22,10 +18,6 @@
             {
               "name": "irvin-marriott-complaint-collin-county.pdf",
               "url": "https://www.courthousenews.com/wp-content/uploads/2023/02/irvin-marriott-complaint-collin-county.pdf"
-            },
-            {
-              "name": "VDAB burgerlogin",
-              "url": "https://www-login.vdab.be/login/start?url=https:%2F%2Fleren.vdab.be%2Fcourse%2Fview.php%3Fid%3D333"
             },
             {
               "name": "Nix language basics — nix.dev documentation",
@@ -46,6 +38,10 @@
             {
               "name": "Introduction to Competitive Programming · USACO Guide",
               "url": "https://usaco.guide/general/intro-cp?lang=cpp"
+            },
+            {
+              "name": "VDAB burgerlogin",
+              "url": "https://www-login.vdab.be/login/start?url=https:%2F%2Fleren.vdab.be%2Fcourse%2Fview.php%3Fid%3D333"
             }
           ]
         },
@@ -251,6 +247,10 @@
             {
               "name": "LZ4 - Extremely fast compression",
               "url": "https://lz4.org/"
+            },
+            {
+              "name": "openrouter.ai at DuckDuckGo",
+              "url": "https://duckduckgo.com/?t=ffab&q=openrouter.ai&ia=web"
             }
           ]
         },
@@ -3046,6 +3046,10 @@
         {
           "name": "Academic Style Guide Reference Tool | Claude",
           "url": "https://claude.ai/public/artifacts/dd46c2e9-a90a-4d46-9489-eb3d9cfe8b7c"
+        },
+        {
+          "name": "nyum | pandoc-templates.org",
+          "url": "https://pandoc-templates.org/template/nyum/"
         }
       ]
     },
@@ -7654,6 +7658,194 @@
         {
           "name": "Still stuck at 1900 and never broke through 2000 USCF 3 years later... : r/chess",
           "url": "https://www.reddit.com/r/chess/comments/1nhfcry/still_stuck_at_1900_and_never_broke_through_2000/"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/4r1k1/3q2P1/6Q1/8/6p1/6Pp/7P/5R1K_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/r1bk3r/pppp1pp1/1n5p/4N2n/2q5/5PQ1/PPP3PP/R3R1K1_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/rnb1kb1r/pp3ppp/2p5/4q3/4n3/3Q4/PPPB1PPP/2KR1BNR_w_kq_-_0_9?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/r2B3r/3n2pp/p1kbR3/1b1p1P2/1qpP4/4PQPP/2B2P1K/8_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/5pk1/4p3/1p1r4/6P1/4P2p/PR2KP2/8_b_-_-_0_1?color=black"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/1k1r3r/ppqb4/5Ppp/3p4/P2np3/3BR1Q1/2PB1PPP/R5K1_w_-_-_0_23?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/7k/8/1p6/7K/2P5/8_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/8/5kp1/8/8/8/6K1_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/Q7/8/6K1/8/2pk4/8_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/5K1k/4p2p/4P2p/5P2/6P1/8_w_-_-_0_57?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/5K1k/4p2p/4P2p/5P2/6P1/8_w_-_-_0_57?color=white#112"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/2r3k1/4Rp1p/6p1/8/P7/6P1/5P1P/6K1_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/R7/8/8/8/6p1/7k/1r6/6K1_w_-_-_0_2?color=white#2"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/KR6/P7/3k4/8/8/8/8/r7_w_-_-_6_4?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/1KP5/3r4/8/8/8/k7_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/6k1/1R3p2/5Ppp/4P3/p7/7P/2r3P1/6K1_w_-_-_0_1?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/6k1/2R5/7P/6P1/6K1/8/8/5r2_w_-_-_27_18?color=white"
+        },
+        {
+          "name": "Analyse • lichess.org",
+          "url": "https://lichess.org/analysis/standard/8/8/5k2/8/1R4p1/6Kp/8/6r1_w_-_-_8_5?color=white"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/SDPoD"
+        },
+        {
+          "name": "Puzzles • lichess.org",
+          "url": "https://lichess.org/training/kA0Yp"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/CTXig"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/T5qCj"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/4LQcR"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/vYess"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/Ncudh"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/lrwlN"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/jAd3Y"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/wchuD"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/XrrJh"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/R9wTj"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/ELWXY"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/5yGZy"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/PWWiv"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/TbH14"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/1n9zJ"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/ZBOJU"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/B4ORe"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/3ySbV"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/U7SqM"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/j5bOW"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/o39Uu"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/GR7y8"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/v6Jei"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/owKTU"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/YiFLQ"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/4TyGV"
+        },
+        {
+          "name": "Puzzels • lichess.org",
+          "url": "https://lichess.org/training/w4OKf"
         }
       ]
     },
@@ -11168,6 +11360,84 @@
         {
           "name": "bertrand russell teapot at DuckDuckGo",
           "url": "https://duckduckgo.com/?q=bertrand+russell+teapot&t=ffab&ia=web"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Books",
+      "bookmarks": [
+        {
+          "name": "book everything must go at DuckDuckGo",
+          "url": "https://duckduckgo.com/?t=ffab&q=book+everything+must+go&ia=web"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Case Law",
+      "bookmarks": [
+        {
+          "name": "Amdir Vs Jovan the last Chairbender on Marcelllus Williams' guilt | PreserveTube",
+          "url": "https://preservetube.com/watch?v=QQPrNQxBTNc"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "People",
+      "bookmarks": [
+        {
+          "name": "melvyn bragg at DuckDuckGo",
+          "url": "https://duckduckgo.com/?q=melvyn+bragg&t=ffab&ia=web"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Rwanda",
+      "bookmarks": [
+        {
+          "name": "Voices of Rwanda",
+          "url": "https://voicesofrwanda.org/"
+        },
+        {
+          "name": "1-611/7 -1997/1998",
+          "url": "https://www.senate.be/english/rwanda.html"
+        },
+        {
+          "name": "The Rwanda \"Genocide Fax\": What We Know Now",
+          "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB452/"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Humor",
+      "bookmarks": [
+        {
+          "name": "calembours at DuckDuckGo",
+          "url": "https://duckduckgo.com/?t=ffab&q=calembours&ia=web"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Writing",
+      "bookmarks": [
+        {
+          "name": "STIX Two • Tiro Typeworks",
+          "url": "https://www.tiro.com/fonts/stix-two#purchase"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "zathura",
+      "bookmarks": [
+        {
+          "name": "pdf - Zathura shortcut/feedkeys configuration for recolouring - Unix & Linux Stack Exchange",
+          "url": "https://unix.stackexchange.com/questions/456837/zathura-shortcut-feedkeys-configuration-for-recolouring"
         }
       ]
     }

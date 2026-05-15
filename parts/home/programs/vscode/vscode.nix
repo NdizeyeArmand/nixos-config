@@ -12,6 +12,7 @@
             "path" = "/run/current-system/sw/bin/nu";
           };
         };
+        "terminal.integrated.window.zoomLevel" = -1;
       };
       extensions = with pkgs.vscode-extensions; [
         usernamehw.errorlens
