@@ -120,11 +120,19 @@ in
   programs.git = {
     enable = true;
     lfs.enable = true;
-    settings.user.name = "Dark_Loon";
-    settings.user.email = "armandgaeln@gmail.com";
-    settings.alias = {
-      co = "checkout";
-      st = "status";
+    settings = {
+      user.name = "Dark_Loon";
+      user.email = "armandgaeln@gmail.com";
+      user.signingkey = "~/.ssh/id_ed25519";
+      alias = {
+        co = "checkout";
+        st = "status";
+      };
+
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
+      commit.gpgsign = true;
+      tag.gpgsign = true;
     };
   };
 
@@ -233,6 +241,10 @@ in
       [filechooser]
       cmd = ${yaziChooser}/bin/yazi-chooser
       default_dir = $HOME
+    '';
+
+    ".config/git/allowed_signers".text = ''
+      armandgaeln@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx7GhOM7YaG9DP5APm77KqFr7hwojWMxnNKoIYRnYXc
     '';
     }
   ;
