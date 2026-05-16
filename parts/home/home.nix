@@ -675,60 +675,69 @@ in
     }
   '';
 
-  xdg.desktopEntries = {
-    "blueman-adapters" = {
-      name = "Bluetooth Adapters";
-      exec = "blueman-adapters";
-      icon = "blueman";
-      categories = [ "Settings" ];
-    };
+  xdg = {
+    desktopEntries = {
+      "blueman-adapters" = {
+        name = "Bluetooth Adapters";
+        exec = "blueman-adapters";
+        icon = "blueman";
+        categories = [ "Settings" ];
+      };
 
-    "yazi" = {
-      name = "Yazi";
-      exec = "foot -- yazi %F";
-      icon = "system-file-manager";
-      categories = [ "System" "FileManager" ];
-    };
+      "yazi" = {
+        name = "Yazi";
+        exec = "foot -- yazi %F";
+        icon = "system-file-manager";
+        categories = [ "System" "FileManager" ];
+      };
 
-    "Helix" = {
-      name = "Helix";
-      exec = "hx %F";
-      icon = "helix";
-      mimeType = [ "text/plain" "application/x-nuscript" "application/octet-stream" ];
-      noDisplay = true;
-    };
+      "Helix" = {
+        name = "Helix";
+        exec = "hx %F";
+        icon = "helix";
+        mimeType = [ "text/plain" "application/x-nuscript" "application/octet-stream" ];
+        noDisplay = true;
+      };
 
-    "footclient" = {
-      name = "Foot Client";
-      exec = "footclient";
-      noDisplay = true;
-    };
+      "footclient" = {
+        name = "Foot Client";
+        exec = "footclient";
+        noDisplay = true;
+      };
 
-    "foot-server" = {
-      name = "Foot Server";
-      exec = "foot --server";
-      noDisplay = true;
-    };
+      "foot-server" = {
+        name = "Foot Server";
+        exec = "foot --server";
+        noDisplay = true;
+      };
 
-    "rmpc" = {
-      name = "Rmpc";
-      exec = "rmpc";
-      noDisplay = true;
-    };
-  };
+      "rmpc" = {
+        name = "Rmpc";
+        exec = "rmpc";
+        noDisplay = true;
+      };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/pdf" = "org.pwmt.zathura.desktop";
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-      "text/plain" = "Helix.desktop";
-      "application/x-nuscript" = "Helix.desktop";
-      "application/octet-stream" = "Helix.desktop";
+      "notes-open" = {
+        name = "Notes Open";
+        exec = "notes-open %u";
+        noDisplay = true;
+        mimeType = [ "x-scheme-handler/notes" ];
+      };
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = "org.pwmt.zathura.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
+        "x-scheme-handler/notes" = "notes-open.desktop";
+        "text/plain" = "Helix.desktop";
+        "application/x-nuscript" = "Helix.desktop";
+        "application/octet-stream" = "Helix.desktop";
+      };
     };
   };
 }

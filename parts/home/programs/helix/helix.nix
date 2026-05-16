@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 let
+  luaFilter = ../pandoc/path.lua;
   typstTemplate = ../pandoc/default.typ;
 in
 {
@@ -11,7 +12,7 @@ in
       ] {
         let pdf_path = $"/tmp/($filename | hash md5).pdf"
 
-        ^pandoc $filename --pdf-engine=typst --template=${typstTemplate} -o $pdf_path
+        ^pandoc $filename --pdf-engine=typst --template=${typstTemplate} --lua-filter=${luaFilter} -o $pdf_path
         while not ($pdf_path | path exists) { sleep 100ms }
 
         let zathura_alive = (
@@ -37,10 +38,31 @@ in
             "pandoc" $filename
             "--pdf-engine=typst"
             "--template=${typstTemplate}"
+            "--lua-filter=${luaFilter}"
             "-o" $pdf_path
           ]
           ^setsid --fork watchexec ...$watch_args
         }
+      }
+    '')
+    (writeScriptBin "notes-open" ''
+      #!/usr/bin/env nu 
+      def main [
+        uri: string
+      ] {
+        let raw_path = ($uri
+          | str replace "notes://" ""
+          | url decode
+        )
+        let md_path = ($raw_path | path expand)  # resolves .. cleanly
+        let pdf_path = $"/tmp/($md_path | hash md5).pdf"
+
+        if not ($pdf_path | path exists) {
+          ^pandoc $md_path --pdf-engine=typst --template=${typstTemplate} --lua-filter=${luaFilter} -o $pdf_path
+        }
+        while not ($pdf_path | path exists) { sleep 100ms }
+
+        ^setsid --fork zathura $pdf_path
       }
     '')
     (writeScriptBin "open-terminal" ''
