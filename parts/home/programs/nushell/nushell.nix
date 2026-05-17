@@ -137,6 +137,7 @@
       la = "ls -a";
       ll = "ls -l";
       l = "ls";
+      tb = "nc termbin.com 9999";
     };
   };
 }

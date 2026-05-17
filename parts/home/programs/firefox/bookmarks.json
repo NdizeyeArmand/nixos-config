@@ -46,6 +46,66 @@
             {
               "name": "grape meaning at DuckDuckGo",
               "url": "https://duckduckgo.com/?t=ffab&q=grape+meaning&ia=web"
+            },
+            {
+              "name": "VLC Keyboard Shortcuts Cheatsheet - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/vlc-keyboard-shortcuts/"
+            },
+            {
+              "name": "VSCode Keyboard Shortcuts Cheatsheet - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/vscode-keyboard-shortcuts/"
+            },
+            {
+              "name": "Linux Command Line Cheatsheet - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/linux-command-line/"
+            },
+            {
+              "name": "Tmux Keyboard Shortcuts - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/tmux-keyboard-shortcuts/"
+            },
+            {
+              "name": "Markdown Cheatsheet - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/markdown/"
+            },
+            {
+              "name": "Regular Expressions Cheatsheet - Make Tech Easier",
+              "url": "https://maketecheasier.com/cheatsheet/regex/"
+            },
+            {
+              "name": "Figure AI's Helix-02 Robots Complete Full 8-Hour Autonomous Shifts as Humanoid Race Intensifies",
+              "url": "https://www.techtimes.com/articles/316632/20260514/figure-ais-helix-02-robots-complete-full-8-hour-autonomous-shifts-humanoid-race-intensifies.htm"
+            },
+            {
+              "name": "5 of the Best System Monitoring Tools in Linux",
+              "url": "https://maketecheasier.com/best-system-monitors-linux/"
+            },
+            {
+              "name": "7 of the Best Performance Enhancing Mods for Minecraft - Make Tech Easier",
+              "url": "https://maketecheasier.com/best-performance-enhancing-mods-for-minecraft/"
+            },
+            {
+              "name": "5 Beautiful Themes to Spice Up Your Tmux Session - Make Tech Easier",
+              "url": "https://maketecheasier.com/beautiful-tmux-themes/"
+            },
+            {
+              "name": "How to Share Your Tmux Session in Real-time with Wemux - Make Tech Easier",
+              "url": "https://maketecheasier.com/share-tmux-session-in-real-time-with-wemux/"
+            },
+            {
+              "name": "Is Network-wide Ad-blocking Better Than Browser Adblock Extensions? - Make Tech Easier",
+              "url": "https://maketecheasier.com/network-wide-adblocking-vs-browser-adblock-extensions/"
+            },
+            {
+              "name": "5 Simple Tricks I Use to Make Good Use of Tmux in Linux - Make Tech Easier",
+              "url": "https://maketecheasier.com/tricks-use-tmux-in-linux/"
+            },
+            {
+              "name": "Passkey vs. 2FA: What You Need to Know - Make Tech Easier",
+              "url": "https://maketecheasier.com/passkey-vs-2fa/"
+            },
+            {
+              "name": "Is SSH Tunneling Better Than Using a VPN? - Make Tech Easier",
+              "url": "https://maketecheasier.com/ssh-tunneling-vs-vpn/"
             }
           ]
         },
@@ -255,6 +315,10 @@
             {
               "name": "openrouter.ai at DuckDuckGo",
               "url": "https://duckduckgo.com/?t=ffab&q=openrouter.ai&ia=web"
+            },
+            {
+              "name": "Neocities: Create your own free website!",
+              "url": "https://neocities.org/"
             }
           ]
         },
@@ -3054,6 +3118,14 @@
         {
           "name": "nyum | pandoc-templates.org",
           "url": "https://pandoc-templates.org/template/nyum/"
+        },
+        {
+          "name": "About · @mandarvaze's microblog",
+          "url": "https://microblog.desipenguin.com/about/"
+        },
+        {
+          "name": "Pixey",
+          "url": "https://pixey.org/"
         }
       ]
     },
@@ -11412,6 +11484,10 @@
         {
           "name": "The Rwanda \"Genocide Fax\": What We Know Now",
           "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB452/"
+        },
+        {
+          "name": "Rwanda | Public Prosecution Service",
+          "url": "https://www.prosecutionservice.nl/topics/i/international-crimes/what-cases-have-been-prosecuted/rwanda"
         }
       ]
     },
@@ -11442,6 +11518,28 @@
         {
           "name": "pdf - Zathura shortcut/feedkeys configuration for recolouring - Unix & Linux Stack Exchange",
           "url": "https://unix.stackexchange.com/questions/456837/zathura-shortcut-feedkeys-configuration-for-recolouring"
+        }
+      ]
+    },
+    {
+      "toolbar": false,
+      "name": "Rights",
+      "bookmarks": [
+        {
+          "name": "The commons belongs to us all - Creative Commons",
+          "url": "https://creativecommons.org/"
+        },
+        {
+          "name": "Electronic Frontier Foundation | Defending your rights in the digital world",
+          "url": "https://www.eff.org/"
+        },
+        {
+          "name": "European Digital Rights (EDRi)",
+          "url": "https://edri.org/"
+        },
+        {
+          "name": "Privacy International",
+          "url": "https://privacyinternational.org/"
         }
       ]
     }
