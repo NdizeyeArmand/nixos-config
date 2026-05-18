@@ -84,7 +84,7 @@ in
     watchexec
     glow
     yaziChooser
-    ssh-to-age
+    libreoffice
 
     # Niri essentials
     swaybg # Wallpaper
