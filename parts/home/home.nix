@@ -16,7 +16,12 @@ let
       }
 
       def main [multiple: int, allow_dirs: int, save: int, start_path: string, output: string, ...rest: string] {
-        cd $start_path
+        let dir = if ($start_path | path type) == "dir" {
+          $start_path
+        } else {
+          $start_path | path dirname
+        }
+        cd $dir
 
         touch $output
         
